@@ -1,0 +1,110 @@
+name: Notify Marie on job refresh
+
+# Fires when jobs.json changes (Marie's refresh commit),
+# and can be run by hand from the Actions tab.
+# Sends from Arnold's Gmail via App Password.
+# Requires repo secrets GMAIL_ADDRESS and GMAIL_APP_PASSWORD.
+
+# Marie's address lives in the MARIE_EMAIL repo secret, not in this file: the repo is public.
+on:
+  push:
+    paths:
+      - 'jobs.json'
+  workflow_dispatch: {}
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v5
+
+      - name: Build summary and send via Gmail SMTP
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARIE_EMAIL: ${{ secrets.MARIE_EMAIL }}
+        run: |
+          python3 - <<'PY'
+          import json, os, ssl, smtplib, datetime
+          from email.mime.text import MIMEText
+
+          person = (os.environ.get('MARIE_EMAIL') or '').strip()
+          if not person:
+              raise SystemExit("Missing MARIE_EMAIL repo secret.")
+          RECIPIENTS = [person, "arbatiste@gmail.com"]
+
+          jobs = json.load(open('jobs.json'))
+          pmt  = [j for j in jobs if j.get('track') == 'Program Management']
+          cyb  = [j for j in jobs if j.get('track') == 'Cyber / RMF Programs']
+
+          def bucket(rows, name):
+              return len([j for j in rows if j.get('priority') == name])
+
+          def count(field, name):
+              return len([j for j in jobs if j.get(field) == name])
+
+          def top_lines(rows, n):
+              out = []
+              for j in sorted(rows, key=lambda r: -r.get('score', 0))[:n]:
+                  out.append(
+                      "  [%s] %s at %s\n      %s | %s | %s\n      %s"
+                      % (j.get('score'), j.get('title'), j.get('company'),
+                         j.get('workModel', 'Remote'), j.get('level'), j.get('salary'), j.get('url'))
+                  )
+              return "\n".join(out) if out else "  (none)"
+
+          today = datetime.date.today().isoformat()
+          subject = "Marie job refresh %s - %d verified roles (%d Program Mgmt, %d Cyber/RMF)" % (
+              today, len(jobs), len(pmt), len(cyb))
+
+          body = (
+              "Hi Marie,\n\n"
+              "Your job search dashboard was refreshed. Every role below was opened and read\n"
+              "individually - 100 percent remote and Maryland-eligible, or onsite at a cleared\n"
+              "site near home - with pay verified against the $150K floor.\n\n"
+              "SUMMARY\n"
+              f"- Total verified roles: {len(jobs)}\n"
+              f"- Remote: {count('workModel','Remote')} | Onsite at a cleared site: {count('workModel','Onsite - cleared site')}\n\n"
+              f"PROGRAM MANAGEMENT TRACK: {len(pmt)}\n"
+              f"- High fit {bucket(pmt,'High')} | Medium {bucket(pmt,'Medium')} | Stretch {bucket(pmt,'Stretch')}\n\n"
+              f"CYBER / RMF PROGRAMS TRACK: {len(cyb)}\n"
+              f"- High fit {bucket(cyb,'High')} | Medium {bucket(cyb,'Medium')} | Stretch {bucket(cyb,'Stretch')}\n"
+              "- Note: some roles are a step down in program scope from your current\n"
+              "  program. Where that is true the dashboard says so plainly in the role notes.\n\n"
+              "SECTOR MIX\n"
+              f"- Defense: {count('sector','Defense')}\n"
+              f"- Federal Civilian: {count('sector','Federal Civilian')}\n"
+              f"- State Government: {count('sector','State Gov')}\n"
+              f"- Commercial IT: {count('sector','Commercial')}\n\n"
+              "TOP PROGRAM MANAGEMENT OPPORTUNITIES\n"
+              f"{top_lines(pmt, 4)}\n\n"
+              "TOP CYBER / RMF PROGRAM OPPORTUNITIES\n"
+              f"{top_lines(cyb, 4)}\n\n"
+              "View Dashboard: https://skillzstacking2023.github.io/marie-job-search/\n\n"
+              "Use the track and work-model filters, and the stage buttons to track\n"
+              "applications through to offer.\n\n"
+              "-- Automated notifier"
+          )
+
+          gmail_addr = os.environ.get('GMAIL_ADDRESS')
+          app_pw = os.environ.get('GMAIL_APP_PASSWORD')
+          if not gmail_addr or not app_pw:
+              raise SystemExit(
+                  "Missing GMAIL_ADDRESS or GMAIL_APP_PASSWORD repo secret. "
+                  "Add both at Settings > Secrets and variables > Actions in this repo.")
+          app_pw = "".join(ch for ch in app_pw if ch.isalnum() and ord(ch) < 128)
+          gmail_addr = gmail_addr.strip()
+
+          msg = MIMEText(body, "plain", "utf-8")
+          msg["Subject"] = subject
+          msg["From"] = gmail_addr
+          msg["To"] = ", ".join(RECIPIENTS)
+
+          ctx = ssl.create_default_context()
+          with smtplib.SMTP("smtp.gmail.com", 587) as s:
+              s.starttls(context=ctx)
+              s.login(gmail_addr, app_pw)
+              s.send_message(msg, from_addr=gmail_addr, to_addrs=RECIPIENTS)
+          print("Sent to", len(RECIPIENTS), "recipients")
+          PY
