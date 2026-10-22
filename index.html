@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marie Daugherty - Program Management Job Search Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+--bg:#0b1120;--bg2:#0f172a;--card:#161f33;--card2:#1c2740;--text:#e8eefb;--muted:#94a3b8;
+--accent:#38bdf8;--accent2:#818cf8;--line:#2a3752;--chip:#233150;
+--green:#22c55e;--amber:#eab308;--orange:#f97316;--purple:#a855f7;--teal:#2dd4bf;
+}
+[data-theme="light"]{
+--bg:#f1f5f9;--bg2:#e9eef6;--card:#ffffff;--card2:#f6f9fd;--text:#0f172a;--muted:#52627a;
+--accent:#0369a1;--accent2:#4f46e5;--line:#cbd8e8;--chip:#e6edf7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--text);line-height:1.55;transition:background .2s,color .2s}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+header{padding:30px 0 20px;border-bottom:1px solid var(--line);
+background:linear-gradient(160deg,var(--bg2),var(--bg))}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+h1{margin:0 0 6px;font-size:29px;letter-spacing:-.02em}
+.creds{color:var(--accent);font-size:14px;font-weight:600;margin-bottom:6px}
+.sub{color:var(--muted);font-size:13.5px;max-width:760px}
+.theme-btn{flex:none;background:var(--card);border:1px solid var(--line);color:var(--text);
+padding:9px 15px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer}
+.theme-btn:hover{border-color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px;max-width:760px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 16px;min-width:0}
+.stat .n{font-size:23px;font-weight:800;letter-spacing:-.02em}
+.stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.updated{color:var(--muted);font-size:12px;margin-top:12px}
+
+.tabs{display:flex;gap:4px;margin:22px 0 0;border-bottom:1px solid var(--line)}
+.tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);
+padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{display:none}
+.panel.active{display:block}
+
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:20px 0 14px}
+input[type=search]{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line);
+color:var(--text);padding:10px 13px;border-radius:10px;font-size:14px;font-family:inherit}
+select{background:var(--card);border:1px solid var(--line);color:var(--text);
+padding:9px 11px;border-radius:10px;font-size:13.5px;font-family:inherit;cursor:pointer}
+input[type=search]:focus,select:focus{outline:none;border-color:var(--accent)}
+.reset{background:transparent;border:1px solid var(--line);color:var(--muted);padding:9px 13px;
+border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:600}
+.reset:hover{border-color:var(--accent);color:var(--text)}
+.count{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(390px,1fr));gap:15px;margin-bottom:44px}
+.job{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:18px;
+display:flex;flex-direction:column;gap:10px;border-left:3px solid var(--line);transition:border-color .15s}
+.job:hover{border-color:var(--accent)}
+.job.st-interested{border-left-color:var(--purple)}
+.job.st-applied{border-left-color:var(--accent)}
+.job.st-screening{border-left-color:var(--teal)}
+.job.st-interview{border-left-color:var(--amber)}
+.job.st-offer{border-left-color:var(--green)}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.title{font-size:16.5px;font-weight:700;margin:0;letter-spacing:-.01em}
+.company{color:var(--accent);font-size:14px;font-weight:600;margin-top:2px}
+.ring{flex:none;position:relative;width:54px;height:54px}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+font-weight:800;font-size:15px}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3.5px 9px;border-radius:999px;background:var(--chip);
+color:var(--text);border:1px solid var(--line);font-weight:600}
+.chip.sec-Commercial{background:#14532d33;border-color:#22c55e;color:#86efac}
+.chip.sec-Federal{background:#0e747033;border-color:#2dd4bf;color:#99f6e4}
+.chip.sec-Defense{background:#7c2d1233;border-color:#f97316;color:#fdba74}
+.chip.secStateGov{background:#1e3a8a33;border-color:#60a5fa;color:#bfdbfe}
+.chip.lvl{background:#4c1d9533;border-color:#a855f7;color:#e9d5ff}
+.chip.trk{font-weight:800}
+.chip.trk.exec{background:#1e3a8a55;border-color:#818cf8;color:#c7d2fe}
+.chip.trk.pmrmf{background:#42200655;border-color:#eab308;color:#fde68a}
+.chip.remote{background:#0e747033;border-color:#2dd4bf;color:#99f6e4}
+.chip.clr-active{background:#7c2d1233;border-color:#f97316;color:#fdba74}
+[data-theme="light"] .chip.sec-Federal{background:#ccfbf1;border-color:#0d9488;color:#134e4a}
+[data-theme="light"] .chip.sec-Defense{background:#ffedd5;border-color:#ea580c;color:#7c2d12}
+[data-theme="light"] .chip.secStateGov{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
+[data-theme="light"] .chip.lvl{background:#f3e8ff;border-color:#9333ea;color:#581c87}
+[data-theme="light"] .chip.trk.exec{background:#e0e7ff;border-color:#4f46e5;color:#312e81}
+[data-theme="light"] .chip.trk.pmrmf{background:#fef3c7;border-color:#d97706;color:#78350f}
+[data-theme="light"] .floorwarn{color:#c2410c}
+.vbadge{display:inline-block;font-size:12px;line-height:1.4;margin:0 8px 0 0;padding:2px 7px;border-radius:999px;white-space:nowrap;vertical-align:middle;background:#14532d55;color:#86efac}
+.vbadge.stale{background:#7c2d1255;color:#fdba74;font-weight:600}
+[data-theme="light"] .vbadge{background:#dcfce7;color:#14532d}
+[data-theme="light"] .vbadge.stale{background:#ffedd5;color:#7c2d12}
+/* Light theme: the tinted chips above are tuned for dark cards only */
+[data-theme="light"] .chip.sec-Commercial,[data-theme="light"] .chip.clr-none,[data-theme="light"] .chip.sec-Health{background:#dcfce7;border-color:#16a34a;color:#14532d}
+[data-theme="light"] .chip.sec-Federal,[data-theme="light"] .chip.clr-active{background:#ffedd5;border-color:#ea580c;color:#7c2d12}
+[data-theme="light"] .chip.sec-Government,[data-theme="light"] .chip.sec-State,[data-theme="light"] .chip.clr-elig{background:#dbeafe;border-color:#2563eb;color:#1e3a8a}
+[data-theme="light"] .chip.remote,[data-theme="light"] .chip.sec-Travel{background:#ccfbf1;border-color:#0d9488;color:#134e4a}
+[data-theme="light"] .chip.cert{background:#fef3c7;border-color:#d97706;color:#78350f}
+[data-theme="light"] .agel.urgent{color:#c2410c}
+.chip.cert{background:#422006;border-color:#eab308;color:#fde68a;font-weight:700}
+.chip.clr-elig{background:#1e3a8a33;border-color:#60a5fa;color:#bfdbfe}
+.pri{font-weight:800;font-size:12px;padding:3.5px 10px;border-radius:999px}
+.pri.High{background:#14532d;color:#86efac}
+.pri.Medium{background:#422006;color:#fde68a}
+.pri.Stretch{background:#431407;color:#fdba74}
+.salary{color:var(--text);font-size:13.5px;font-weight:600}
+.notes{color:var(--muted);font-size:13px}
+.floorwarn{font-size:12px;color:#fdba74;font-weight:600}
+.actbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--card);
+border:1px solid var(--accent);border-radius:12px;padding:12px 15px;margin:16px 0 2px}
+.actcount{font-size:13px;font-weight:700;margin-right:4px}
+.actbtn{font-size:12px;font-weight:700;padding:7px 13px;border-radius:9px;border:1px solid var(--line);
+background:transparent;color:var(--text);cursor:pointer;font-family:inherit}
+.actbtn:hover{border-color:var(--accent)}
+.actmsg{font-size:12px;color:var(--accent);font-weight:600}
+.guide{max-width:820px;padding:8px 0 50px;font-size:14px}
+.guide h2{font-size:19px;margin:30px 0 8px;letter-spacing:-.01em}
+.guide h2:first-child{margin-top:12px}
+.guide p{color:var(--muted);margin:0 0 12px;line-height:1.65}
+.guide ul{color:var(--muted);margin:0 0 14px;padding-left:20px;line-height:1.7}
+.guide li{margin-bottom:5px}
+.guide strong{color:var(--text)}
+.guide .callout{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);
+border-radius:10px;padding:14px 17px;margin:0 0 16px}
+.guide .callout.warn{border-left-color:#f97316}
+.guide .callout p:last-child{margin-bottom:0}
+.agel{font-size:12px;color:var(--muted)}
+.agel.urgent{color:#fdba74;font-weight:700}
+.stagebar{display:flex;gap:4px;flex-wrap:wrap;padding-top:2px;align-items:center}
+.savehint{font-size:12px;color:var(--muted);font-weight:700;margin-right:2px}
+.stagebtn{font-size:12px;font-weight:700;padding:5px 10px;border-radius:8px;border:1px solid var(--line);
+background:transparent;color:var(--muted);cursor:pointer;font-family:inherit}
+.stagebtn:hover{border-color:var(--accent);color:var(--text)}
+.stagebtn.on{color:#04283a}
+.stagebtn.on.interested{background:var(--purple);border-color:var(--purple);color:#faf5ff}
+.stagebtn.on.applied{background:var(--accent);border-color:var(--accent)}
+.stagebtn.on.screening{background:var(--teal);border-color:var(--teal)}
+.stagebtn.on.interview{background:var(--amber);border-color:var(--amber)}
+.cardtools{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.stagesel{font-size:12.5px;padding:6px 9px;border-radius:8px;font-weight:700}
+.stagesel.on{border-color:var(--accent)}
+.linkbtn{background:none;border:none;padding:4px 2px;color:var(--accent);font-size:12.5px;font-weight:700;
+cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--text)}
+.aitools{display:flex;gap:10px;align-items:center}
+.notes.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.morebtn{align-self:flex-start;margin-top:-6px}
+.chip.newjob{background:var(--accent);border-color:var(--accent);color:#04283a;font-weight:800}
+[data-theme="light"] .chip.newjob{color:#fff}
+.minibar{position:fixed;top:0;left:0;right:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--line);
+box-shadow:0 4px 14px #0003;transform:translateY(-110%);transition:transform .18s;visibility:hidden}
+.minibar.show{transform:none;visibility:visible}
+.minibar .wrap{display:flex;gap:10px;align-items:center;padding-top:9px;padding-bottom:9px}
+.minibar input[type=search]{min-width:0;padding:8px 12px}
+.minicount{color:var(--muted);font-size:13px;white-space:nowrap}
+@media(max-width:640px){.minicount{display:none}}
+@media(prefers-reduced-motion:reduce){.minibar{transition:none}}
+.morefilters{display:none;flex-wrap:wrap;gap:9px;width:100%}
+.morefilters.open{display:flex}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.aibtn{font-size:12px;font-weight:700;padding:6px 11px;border-radius:8px;border:1px solid var(--accent2);
+background:transparent;color:var(--text);cursor:pointer;font-family:inherit}
+.aibtn:hover{background:var(--accent2);color:#fff}
+dialog.aidlg{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:15px;
+padding:0;width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 48px)}
+dialog.aidlg::backdrop{background:#0008}
+.aidlg-in{display:flex;flex-direction:column;gap:12px;padding:20px;max-height:calc(100vh - 48px)}
+.aidlg h3{margin:0;font-size:18px}
+.aidlg .aisub{margin:0;color:var(--muted);font-size:13px}
+.aidlg ol{margin:0;padding-left:20px;font-size:13.5px}
+.aidlg textarea{width:100%;flex:1;min-height:220px;resize:vertical;background:var(--bg2);color:var(--text);
+border:1px solid var(--line);border-radius:10px;padding:12px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.aiact{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.aimsg{flex:1;font-size:12.5px;color:var(--green);font-weight:600}
+.stagebtn.on.offer{background:var(--green);border-color:var(--green);color:#052e16}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:2px}
+.linkrow{display:flex;gap:8px}
+a.apply{background:var(--accent);color:#04283a;text-decoration:none;font-weight:700;font-size:13px;
+padding:8px 14px;border-radius:9px}
+[data-theme="light"] a.apply{color:#fff}
+.expand{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:12.5px;
+font-weight:700;padding:8px 12px;border-radius:9px;cursor:pointer;font-family:inherit}
+.expand:hover{border-color:var(--accent);color:var(--text)}
+.detail{display:none;border-top:1px solid var(--line);padding-top:13px;margin-top:4px;gap:14px;
+flex-direction:column}
+.detail.open{display:flex}
+.dh{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+font-weight:700;margin-bottom:8px}
+.fitrow{display:grid;grid-template-columns:88px 1fr 26px;gap:9px;align-items:center;margin-bottom:7px}
+.fitlabel{font-size:12px;color:var(--muted);font-weight:600}
+.bar{height:7px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:99px}
+.fitnum{font-size:12px;font-weight:800;text-align:right}
+.fitnote{font-size:12px;color:var(--muted);margin:-2px 0 9px 97px;line-height:1.45}
+.intel{display:grid;grid-template-columns:106px 1fr;gap:6px 12px;font-size:12.5px}
+.ik{color:var(--muted);font-weight:600}
+.notebox{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--text);
+border-radius:9px;padding:9px 11px;font-size:13px;font-family:inherit;resize:vertical;min-height:62px}
+.notebox:focus{outline:none;border-color:var(--accent)}
+
+.board{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:12px;
+overflow-x:auto;padding-bottom:44px;margin-top:18px}
+.col{background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:12px;min-height:180px}
+.colhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.colname{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.colcount{font-size:12px;font-weight:800;background:var(--chip);padding:2px 8px;border-radius:99px;color:var(--muted)}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px;margin-bottom:9px}
+.pcard .pt{font-size:13px;font-weight:700;line-height:1.35}
+.pcard .pc{font-size:12px;color:var(--accent);font-weight:600;margin-top:2px}
+.pcard .pm{font-size:12px;color:var(--muted);margin-top:5px}
+.pcard .pn{font-size:12px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid var(--line);
+white-space:pre-wrap}
+.movebar{display:flex;gap:4px;margin-top:8px}
+.movebtn{flex:1;font-size:12px;font-weight:700;padding:4px 6px;border-radius:6px;
+border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit}
+.movebtn:hover{border-color:var(--accent);color:var(--text)}
+.colempty{color:var(--muted);font-size:12px;text-align:center;padding:18px 6px}
+
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:16px;
+margin:20px 0 44px}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.chartbox h3{margin:0 0 4px;font-size:15px}
+.chartbox .cs{color:var(--muted);font-size:12px;margin-bottom:14px}
+.canvaswrap{position:relative;height:270px}
+.empty{color:var(--muted);text-align:center;padding:48px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:26px;border-top:1px solid var(--line)}
+@media(max-width:640px){
+.grid{grid-template-columns:1fr}
+h1{font-size:22px}
+.fitnote{margin-left:0}
+}
+.whatsnew{display:none;background:var(--card);border:1px solid var(--accent);border-left:3px solid var(--accent);border-radius:12px;padding:14px 16px;margin:16px 0 0}
+.wnhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;font-size:14px;font-weight:700}
+.wnclose{background:var(--accent);color:#04283a;border:none;font-weight:700;font-size:12px;padding:6px 12px;border-radius:8px;cursor:pointer;font-family:inherit}
+.wnitem{padding:8px 0;border-top:1px solid var(--line)}
+.wntitle{font-size:13.5px;font-weight:700}
+.wnbody{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.5}
+.wndate{font-size:12px;color:var(--muted);margin-top:3px;}
+
+/* card-footer-layout-v2 (2026-09-10): the verified badge was inserted into .linkrow,
+   a flex row, where display:inline-block blockifies and default align-items:stretch
+   grew it to the tallest sibling - producing an oversized green block. The nowrap
+   badge also squeezed .expand and a.apply until their labels wrapped to three lines.
+   Fixed by laying .actions out as an explicit grid: badge on its own row, the two
+   buttons side by side beneath it. */
+.actions{display:grid;grid-template-columns:1fr auto;grid-template-areas:"vb vb" "ex ap";gap:8px 10px;align-items:center}
+.linkrow{display:contents}
+.job .verified-badge-v1{grid-area:vb;justify-self:start;margin:0 !important}
+.expand{grid-area:ex;justify-self:start;white-space:nowrap}
+.job a.apply{grid-area:ap;justify-self:end;white-space:nowrap;text-align:center}
+.stagebar{gap:5px}
+@media(max-width:400px){
+  .actions{grid-template-columns:1fr;grid-template-areas:"vb" "ex" "ap"}
+  .expand,.job a.apply{justify-self:stretch;text-align:center}
+}
+</style>
+<script>
+(function(){var t=null;try{t=localStorage.getItem("tt_theme");}catch(e){}
+if(t!=="light"&&t!=="dark")t=(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark";
+document.documentElement.setAttribute("data-theme",t);})();
+</script>
+</head>
+<body>
+<div class="minibar" id="minibar" aria-hidden="true">
+<div class="wrap">
+<input type="search" id="q2" placeholder="Search jobs..." aria-label="Search jobs" tabindex="-1">
+<span class="minicount" id="minicount"></span>
+<button class="reset" type="button" tabindex="-1" onclick="toFilters()">Filters</button>
+</div>
+</div>
+<header>
+<div class="wrap">
+<div class="header-top">
+<div>
+<h1>Marie Daugherty</h1>
+<div class="creds">PMP - MS Technical Management - Active clearance (details on request)</div>
+</div>
+<button class="theme-btn" id="wnbtn" onclick="renderWhatsNew(true)">What&#39;s new</button>
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()">Light Mode</button>
+</div>
+<div class="stats" id="stats"></div>
+<div class="whatsnew" id="whatsnew"></div>
+<div class="updated" id="updated"></div>
+</div>
+</header>
+
+<div class="wrap">
+<div class="tabs">
+<button class="tab active" data-panel="p-opps" onclick="showTab(this)">Opportunities</button>
+<button class="tab" data-panel="p-pipe" onclick="showTab(this)">Pipeline</button>
+<button class="tab" data-panel="p-analytics" onclick="showTab(this)">Analytics</button>
+<button class="tab" data-panel="p-guide" onclick="showTab(this)">How to use</button>
+</div>
+
+<div class="panel active" id="p-opps">
+<div class="controls">
+<input type="search" id="q" placeholder="Search title, company, notes, intel..." aria-label="Search jobs">
+<select id="track"><option value="">Both tracks</option><option value="Program Management">Program Management (Sr PM / Deputy PM / Director, $150K+)</option><option value="Cyber / RMF Programs">Cyber / RMF Programs ($150K+)</option></select>
+<select id="wm"><option value="">Any work model</option><option value="Remote">100% remote</option><option value="Onsite - cleared site">Onsite - cleared site</option></select>
+<select id="comp">
+<option value="">Any compensation</option>
+<option value="min150000">Guaranteed $150K+ (band minimum)</option>
+<option value="min175000">Guaranteed $175K+ (band minimum)</option>
+<option value="max200000">Could reach $200K+ (band maximum)</option>
+</select>
+<select id="sort">
+<option value="score">Sort: fit score</option>
+<option value="compdesc">Sort: comp high to low</option>
+<option value="company">Sort: company A-Z</option>
+<option value="fresh">Sort: newest first</option><option value="new">Sort: new since last visit</option>
+</select>
+<button class="reset" type="button" onclick="resetFilters()">Reset</button>
+<button class="reset" type="button" id="morebtn" aria-expanded="false" onclick="toggleMore()">More filters</button>
+<div class="morefilters" id="morefilters">
+<select id="priority"><option value="">All priorities</option><option>High</option><option>Medium</option><option>Stretch</option></select>
+<select id="sector"><option value="">All sectors</option><option>Defense</option><option>Federal Civilian</option><option>State Gov</option><option>Commercial</option></select>
+<select id="level"><option value="">All levels</option><option>VP</option><option>Senior Director</option><option>Director</option><option>Deputy PM</option><option>Senior / Lead</option></select>
+<select id="role"><option value="">All functions</option></select>
+<select id="stage">
+<option value="">All pipeline stages</option>
+<option value="untracked">Not tracked</option>
+<option value="interested">Interested</option>
+<option value="applied">Applied</option>
+<option value="screening">Screening</option>
+<option value="interview">Interview</option>
+<option value="offer">Offer</option>
+</select>
+</div>
+</div>
+<div class="count" id="count"></div>
+<div class="grid" id="grid"></div>
+</div>
+
+<div class="panel" id="p-pipe">
+<div class="actbar">
+<span class="actcount" id="actcount"></span>
+<button class="actbtn" type="button" onclick="emailPipeline()">Email to me</button>
+<button class="actbtn" type="button" onclick="copyPipeline()">Copy list</button>
+<button class="actbtn" type="button" onclick="downloadCSV()">Download CSV</button>
+<button class="actbtn" type="button" onclick="backupJSON()">Backup</button>
+<label class="actbtn" style="cursor:pointer">Restore<input type="file" id="restorefile" accept="application/json,.json" style="display:none" onchange="restoreJSON(event)"></label>
+<span class="actmsg" id="actmsg"></span>
+</div>
+<div class="count" id="pipecount" style="margin-top:20px"></div>
+<div class="board" id="board"></div>
+</div>
+
+<div class="panel" id="p-guide">
+<div class="guide">
+
+<h2>What is in here, and how it got here</h2>
+<p>Every role on this dashboard has been opened and read against the live posting before it was published. Nothing is listed on the strength of a search-result summary. Four things are checked on each one:</p>
+<ul>
+<li><strong>Still open</strong> - no expired, filled or closed postings</li>
+<li><strong>Work model</strong> - either genuinely 100% remote and open to someone living in Maryland, or onsite at a cleared site within commuting distance. If a posting never states where the work is done, it is dropped rather than assumed. Hybrid roles are not included</li>
+<li><strong>Program leadership level</strong> - Senior Program Manager, Deputy Program Manager, Program Director, PMO lead and above. Coordinator, analyst and project-lead seats do not belong here</li>
+<li><strong>The salary band that applies to Maryland</strong>, not a higher band published for another state</li>
+</ul>
+<p>Roles that fail any of these are removed entirely rather than kept at a lower score. That is why the list is short. A shorter honest list is the point.</p>
+
+<div class="callout"><p><strong>The search profile behind the scores.</strong> Senior Program Manager with more than thirty years leading large DoD, NASA, State and commercial programs - award-fee, cost-plus, performance-based and fixed-price contracts, PMO operations, earned value, security risk management and RMF, and ServiceNow workflow delivery. Targeting senior and deputy program management roles in Defense, Federal Civilian, State Government and Commercial IT, remote or at a cleared site near home.</p></div>
+
+<h2>Reading a role card</h2>
+<p>The <strong>number in the ring</strong> is an overall fit score out of 100. Green is a strong fit (85+), amber is good with a gap (75-84), orange is a stretch (65-74).</p>
+<p>Under the salary you may see an <strong>amber warning</strong> that the band starts below $150K. That means the employer published a wide range and the top of it is not guaranteed - worth knowing before you invest time.</p>
+<p>The grey line at the bottom shows <strong>how old the posting is, when it closes</strong>, and the date it was last checked against the live listing. Anything closing within seven days is highlighted in amber.</p>
+<p>Click <strong>Details</strong> on any card to open three things: a five-part score breakdown explaining exactly why it scored what it did, what is known about the company, and a free-text notes box that saves as you type.</p>
+
+<h2>Tracking roles you are interested in</h2>
+<p>Every card has a <strong>Save to pipeline</strong> menu - choose Interested, Applied, Screening, Interview or Offer to track the role. Choose <strong>Save to pipeline</strong> again to untrack it.</p>
+<p>Tracked roles appear on the <strong>Pipeline</strong> tab as a board, one column per stage, and the arrows under each card move it forward or back. Your notes travel with the role.</p>
+<div class="callout">
+<p><strong>Your tracking survives the daily refresh.</strong> Each role is remembered by company and title rather than by position in the list, so a role you marked Applied stays Applied tomorrow even though the list around it changes.</p>
+</div>
+
+<h2>Sending roles to yourself</h2>
+<p>The buttons at the top of the Pipeline tab work on whatever you have tracked:</p>
+<ul>
+<li><strong>Email to me</strong> - opens Gmail with a message already written - add your own address - listing every tracked role grouped by stage with links, salary and your own notes. You just press send.</li>
+<li><strong>Copy list</strong> - puts the same text on your clipboard to paste into a document, a message, or an email to someone else</li>
+<li><strong>Download CSV</strong> - a spreadsheet of everything you are tracking, for Excel or Google Sheets</li>
+<li><strong>Backup</strong> and <strong>Restore</strong> - see the caveat below</li>
+</ul>
+<div class="callout warn">
+<p><strong>Your tracking lives in this browser only.</strong> It is not stored on a server. If you clear your browsing data, or switch to a different computer or phone, it will not follow you.</p>
+<p>Use <strong>Backup</strong> now and then to download a small file of your pipeline, and <strong>Restore</strong> to load it back or move it to another device.</p>
+</div>
+
+<h2>New jobs and finding your place</h2>
+<p>Jobs added since your last visit carry a <strong>New</strong> badge, and the line above the cards says how many there are. Choose <strong>Sort: new since last visit</strong> to put them first. Once you scroll past the filters, a search bar stays pinned to the top of the screen; <strong>Filters</strong> takes you back to the full set.</p>
+
+<h2>Gap analysis and tailored resume</h2>
+<p>Every card has two links, <strong>Gap analysis</strong> and <strong>Tailor resume</strong>:</p>
+<ul>
+<li><strong>Gap analysis</strong> - compares the posting with your resume: what you match, what's missing, which gaps are hard barriers and which you can close or explain, and whether it's worth applying.</li>
+<li><strong>Tailor resume</strong> - rewrites your resume for that posting, using only what's already in it. Anything the job asks for that you don't have is listed separately instead of being added.</li>
+</ul>
+<p>Each link prepares a prompt with that job's details. Click <strong>Copy prompt</strong>, then open whichever AI assistant you use - ChatGPT, Claude, Gemini, Microsoft Copilot or another - start a new chat, attach your resume, paste and send. Your resume and the results stay in your own chat - nothing is posted to this page. Always read a tailored resume before you send it.</p>
+
+<h2>What the tiles at the top mean</h2>
+<ul>
+<li><strong>Verified roles</strong> - the total, all individually checked against the live posting</li>
+<li><strong>High fit</strong> - scored 85 or above</li>
+<li><strong>Min clears floor</strong> - roles where even the <em>bottom</em> of the published band clears your floor for that track ($150K). This deliberately does not count roles that merely <em>could</em> reach a high number</li>
+<li><strong>In pipeline</strong> - how many you are tracking</li>
+</ul>
+<p>Roles closing within 7 days are counted on the line under the tiles, and flagged on their cards.</p>
+
+<h2>The Analytics tab</h2>
+<p>Six views of the same data: where the market actually is by sector, how scores are distributed, published salary bands with a dashed line marking your $150K floor, an average of where this slate is strong and where it is thin, your application funnel, and which kinds of program roles are open.</p>
+<p>The compensation chart is worth a look - the grey part of each bar is the band minimum and the blue part is the range above it, so you can see at a glance which employers start below your floor.</p>
+
+<h2>What this dashboard does not know</h2>
+<div class="callout warn">
+<p>Company intel is incomplete. Recent news and hiring history are unknown for most employers here, and those fields say so rather than guessing.</p>
+<p>Where an employer publishes no salary, the card says <strong>Not disclosed - est.</strong> and the number is an estimate, not something the employer stated.</p>
+<p>Most importantly: many senior cleared program roles are never posted on public boards - they are filled through recruiters, teaming partners and referrals, and the biggest cleared job boards block automated checking. Treat this as one input to your search, not the whole map of it.</p>
+</div>
+
+<h2>When it updates</h2>
+<p>The list refreshes every morning and you get an email summarising what changed. The date under the header always shows when roles were last checked against their live postings.</p>
+
+</div>
+</div>
+
+<div class="panel" id="p-analytics">
+<div class="charts">
+<div class="chartbox">
+<h3>Opportunities by sector</h3>
+<div class="cs">Where the open roles are for your profile</div>
+<div class="canvaswrap"><canvas id="c-sector"></canvas></div>
+</div>
+<div class="chartbox">
+<h3>Fit score distribution</h3>
+<div class="cs">How many roles land in each scoring band</div>
+<div class="canvaswrap"><canvas id="c-score"></canvas></div>
+</div>
+<div class="chartbox">
+<h3>Compensation ranges</h3>
+<div class="cs">Published or estimated base bands, highest first. Dashed line is the $150K floor.</div>
+<div class="canvaswrap"><canvas id="c-comp"></canvas></div>
+</div>
+<div class="chartbox">
+<h3>Average fit breakdown</h3>
+<div class="cs">Where this slate is strong and where it is thin, averaged across all roles</div>
+<div class="canvaswrap"><canvas id="c-radar"></canvas></div>
+</div>
+<div class="chartbox">
+<h3>Application pipeline</h3>
+<div class="cs">Your progress through the funnel. Updates as you set stages.</div>
+<div class="canvaswrap"><canvas id="c-funnel"></canvas></div>
+</div>
+<div class="chartbox">
+<h3>Function mix</h3>
+<div class="cs">Which kinds of program roles are open</div>
+<div class="canvaswrap"><canvas id="c-role"></canvas></div>
+</div>
+</div>
+</div>
+</div>
+
+<dialog class="aidlg" id="aidlg" aria-labelledby="aititle">
+<div class="aidlg-in">
+<h3 id="aititle"></h3>
+<p class="aisub" id="aisub"></p>
+<ol>
+<li>Click <strong>Copy prompt</strong>.</li>
+<li>Open the AI assistant you use (ChatGPT, Claude, Gemini, Copilot or another), start a new chat and attach your current resume (usually the paperclip or + button).</li>
+<li>Paste (Cmd+V or Ctrl+V) and send.</li>
+</ol>
+<textarea id="aitext" aria-label="Prompt to send to your AI assistant" spellcheck="false"></textarea>
+<div class="aiact">
+<span class="aimsg" id="aimsg" role="status"></span>
+<button class="expand" type="button" onclick="document.getElementById('aidlg').close()">Close</button>
+<button class="aibtn" id="aigo" type="button" onclick="aiCopy()">Copy prompt</button>
+</div>
+</div>
+</dialog>
+
+<footer>Auto-refreshed daily. Built for Marie Daugherty. Scores reflect fit to your profile: senior and deputy program management, a $150K floor, remote or at a cleared site near home, in Defense, Federal Civilian, State Government and Commercial IT. Every role here was opened and re-checked against the live posting for work model, level and published salary - roles that failed were removed rather than downgraded. Where a salary is an estimate rather than a published band, the card says so. Pipeline stages and notes are saved in this browser only.</footer>
+
+<script>
+var JOBS=[];
+var STAGES=["interested","applied","screening","interview","offer"];
+var STAGE_LABEL={interested:"Interested",applied:"Applied",screening:"Screening",interview:"Interview",offer:"Offer"};
+var STATE=JSON.parse(localStorage.getItem("mm_state_v1")||"{}");
+var OPEN={};
+var CHARTS={};
+
+function saveState(){localStorage.setItem("mm_state_v1",JSON.stringify(STATE));}
+function getRec(id){if(!STATE[id])STATE[id]={stage:"",notes:""};return STATE[id];}
+function setStage(id,s){var r=getRec(id);r.stage=(r.stage===s)?"":s;saveState();renderAll();}
+function moveStage(id,dir){
+var r=getRec(id);var i=STAGES.indexOf(r.stage);var n=i+dir;
+if(n<0){r.stage="";}else if(n>=STAGES.length){return;}else{r.stage=STAGES[n];}
+saveState();renderAll();
+}
+function setNotes(id,v){getRec(id).notes=v;saveState();}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+function val(id){return document.getElementById(id).value;}
+function scoreColor(s){return s>=85?"#22c55e":s>=75?"#eab308":"#f97316";}
+function migrateOld(){return 0;}
+function secClass(s){return s==="State Gov"?"secStateGov":"sec-"+s;}
+function slugify(s){return String(s==null?"":s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+/,"").replace(/-+$/,"").slice(0,80);}
+function jobKey(j){return j.key?j.key:(slugify(j.company)+"--"+slugify(j.title)+"--"+slugify(j.location||""));}
+function daysOld(d){if(!d)return null;var t=new Date(d+"T00:00:00");return Math.floor((Date.now()-t)/86400000);}
+function daysLeft(d){if(!d)return null;var t=new Date(d+"T00:00:00");return Math.ceil((t-Date.now())/86400000);}
+function ageLine(j){
+var p=[];
+var a=daysOld(j.posted);
+p.push(a===null?"Posting date not published":(a<=1?"Posted today":"Posted "+a+" days ago"));
+var l=daysLeft(j.expiresOn);
+if(l!==null)p.push(l<0?"CLOSED":(l===0?"Closes today":l===1?"Closes tomorrow":"Closes in "+l+" days"));
+if(j.verified)p.push("Verified against posting "+j.verified);
+return p.join("  -  ");
+}
+function isUrgent(j){var l=daysLeft(j.expiresOn);return l!==null&&l<=7;}
+function money(n){return "$"+Math.round(n/1000)+"K";}
+
+function ring(score){
+var w=el("div","ring");
+var c=scoreColor(score);
+var r=23,circ=2*Math.PI*r,off=circ*(1-score/100);
+var svg='<svg width="54" height="54" viewBox="0 0 54 54">'+
+'<circle cx="27" cy="27" r="'+r+'" fill="none" stroke="var(--chip)" stroke-width="5"></circle>'+
+'<circle cx="27" cy="27" r="'+r+'" fill="none" stroke="'+c+'" stroke-width="5" stroke-linecap="round" '+
+'stroke-dasharray="'+circ.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'"></circle></svg>';
+w.innerHTML=svg;
+var v=el("div","val",score);v.style.color=c;w.appendChild(v);
+return w;
+}
+
+function fitBlock(j){
+var box=el("div");
+box.appendChild(el("div","dh","Why it scored "+j.score));
+var keys=[["leadership","Leadership"],["domain","Domain"],["remote","Remote"],["comp","Comp"],["industry","Industry"]];
+keys.forEach(function(k){
+var v=(j.fit&&j.fit[k[0]])||0;
+var row=el("div","fitrow");
+row.appendChild(el("div","fitlabel",k[1]));
+var bar=el("div","bar");
+var sp=el("span");sp.style.width=(v*20)+"%";
+sp.style.background=v>=5?"var(--green)":v>=4?"var(--accent)":v>=3?"var(--amber)":"var(--orange)";
+bar.appendChild(sp);row.appendChild(bar);
+row.appendChild(el("div","fitnum",v+"/5"));
+box.appendChild(row);
+if(j.fitNotes&&j.fitNotes[k[0]])box.appendChild(el("div","fitnote",j.fitNotes[k[0]]));
+});
+return box;
+}
+
+function intelBlock(j){
+var box=el("div");
+box.appendChild(el("div","dh","Company intel"));
+var g=el("div","intel");
+var rows=[["Size","size"],["Headquarters","hq"],["Remote policy","remotePolicy"],["Recent news","news"],["Hiring history","levelHistory"]];
+rows.forEach(function(r){
+var v=(j.intel&&j.intel[r[1]])||"Not determined";
+g.appendChild(el("div","ik",r[0]));
+g.appendChild(el("div",null,v));
+});
+box.appendChild(g);
+return box;
+}
+
+function noteBlock(j){
+var box=el("div");
+box.appendChild(el("div","dh","Your notes"));
+var ta=document.createElement("textarea");
+ta.className="notebox";
+ta.placeholder="Recruiter name, referral path, tailored resume version, follow-up date...";
+ta.value=getRec(jobKey(j)).notes||"";
+ta.addEventListener("input",function(){setNotes(jobKey(j),ta.value);});
+box.appendChild(ta);
+return box;
+}
+
+function matches(j){
+var q=val("q").toLowerCase();
+var hay=(j.title+" "+j.company+" "+j.location+" "+j.notes+" "+j.roleType+" "+j.sector+" "+
+JSON.stringify(j.intel||{})+" "+JSON.stringify(j.fitNotes||{})).toLowerCase();
+if(q&&hay.indexOf(q)<0)return false;
+if(val("track")&&j.track!==val("track"))return false;
+if(val("wm")&&(j.workModel||"Remote")!==val("wm"))return false;
+if(val("priority")&&j.priority!==val("priority"))return false;
+if(val("sector")&&j.sector!==val("sector"))return false;
+if(val("level")&&j.level!==val("level"))return false;
+if(val("role")&&j.roleType!==val("role"))return false;
+var cv=val("comp");
+if(cv){
+var cn=parseInt(cv.replace(/^(min|max)/,""),10);
+if(cv.indexOf("min")===0){if((j.salaryMin||0)<cn)return false;}
+else{if((j.salaryMax||0)<cn)return false;}
+}
+var st=val("stage");var cur=getRec(jobKey(j)).stage;
+if(st==="untracked"&&cur)return false;
+if(st&&st!=="untracked"&&cur!==st)return false;
+return true;
+}
+
+function sortJobs(list){
+var s=val("sort");
+var out=list.slice();
+if(s==="compdesc")out.sort(function(a,b){return (b.salaryMax||0)-(a.salaryMax||0);});
+else if(s==="new")out.sort(function(a,b){return (NEWJOBS[jobKey(b)]?1:0)-(NEWJOBS[jobKey(a)]?1:0)||b.score-a.score;});
+else if(s==="fresh")out.sort(function(a,b){return String(b.posted||"").localeCompare(String(a.posted||""));});
+else if(s==="company")out.sort(function(a,b){return a.company.localeCompare(b.company);});
+else out.sort(function(a,b){return b.score-a.score;});
+return out;
+}
+
+var NOTECHK=[];
+/* Jobs not seen on the previous visit get a "New" chip. The list for this visit is kept in
+   sessionStorage so reloading during the same visit doesn't clear the markers. */
+var NEWJOBS={};
+function markNewJobs(){
+var SEEN="marie_seen_jobs",SESS="marie_new_this_visit";
+try{
+var cached=sessionStorage.getItem(SESS);
+if(cached){NEWJOBS=JSON.parse(cached);}
+else{
+var prev=JSON.parse(localStorage.getItem(SEEN)||"null");
+if(prev){var p={};prev.forEach(function(x){p[x]=1;});
+JOBS.forEach(function(j){var k=jobKey(j);if(!p[k])NEWJOBS[k]=1;});}
+sessionStorage.setItem(SESS,JSON.stringify(NEWJOBS));}
+localStorage.setItem(SEEN,JSON.stringify(JOBS.map(jobKey)));
+}catch(e){NEWJOBS={};}}
+function toFilters(){document.getElementById("q").scrollIntoView({behavior:"smooth",block:"center"});
+setTimeout(function(){document.getElementById("q").focus({preventScroll:true});},300);}
+function initMinibar(){
+var bar=document.getElementById("minibar"),q=document.getElementById("q"),q2=document.getElementById("q2");
+q2.addEventListener("input",function(){q.value=q2.value;moreLabel();renderGrid();});
+q.addEventListener("input",function(){q2.value=q.value;});
+var ctl=document.querySelector("#p-opps .controls"),ticking=false;
+/* show once the filter row has scrolled fully above the screen; checked on every scroll
+   so a fast flick past the filters can't be missed */
+function check(){ticking=false;
+var show=ctl.getBoundingClientRect().bottom<0&&document.getElementById("p-opps").classList.contains("active");
+if(show===bar.classList.contains("show"))return;
+bar.classList.toggle("show",show);bar.setAttribute("aria-hidden",show?"false":"true");
+[].forEach.call(bar.querySelectorAll("input,button"),function(x){x.tabIndex=show?0:-1;});}
+window.addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(check);}},{passive:true});
+window.addEventListener("resize",check);check();}
+function renderGrid(){
+var grid=document.getElementById("grid");grid.innerHTML="";NOTECHK=[];
+var list=sortJobs(JOBS.filter(matches));
+var nNew=Object.keys(NEWJOBS).length;
+var ctext=list.length+" of "+JOBS.length+" roles shown";
+document.getElementById("count").textContent=ctext+(nNew?" - "+nNew+" new since your last visit":"");
+document.getElementById("minicount").textContent=ctext;
+if(!list.length){grid.innerHTML='<div class="empty">No matches. Try clearing filters.</div>';return;}
+list.forEach(function(j){
+var k=jobKey(j),rec=getRec(k);
+var card=el("div","job"+(rec.stage?" st-"+rec.stage:""));
+
+var row=el("div","row");
+var left=el("div");
+left.appendChild(el("p","title",j.title));
+left.appendChild(el("div","company",j.company));
+row.appendChild(left);var rg=ring(j.score);rg.setAttribute("role","img");rg.setAttribute("aria-label","Fit score "+j.score+" of 100 - "+j.priority);rg.title=j.priority+" fit";
+row.appendChild(rg);card.appendChild(row);
+
+var b=el("div","badges");
+if(NEWJOBS[k])b.appendChild(el("span","chip newjob","New"));
+b.appendChild(el("span","chip trk"+(j.track==="Program Management"?" exec":" pmrmf"),j.track));
+b.appendChild(el("span","chip remote",j.location));
+if(j.workModel&&j.workModel!=="Remote")b.appendChild(el("span","chip clr-active",j.workModel));
+if(j.clearance==="Active Required")b.appendChild(el("span","chip clr-active","Active clearance required"));
+else if(j.clearance==="Eligible/Sponsor")b.appendChild(el("span","chip clr-elig","Clearance eligible"));
+card.appendChild(b);
+
+card.appendChild(el("div","salary",j.salary));
+var jf=150000;
+if((j.salaryMin||0)<jf)card.appendChild(el("div","floorwarn",
+"Band starts at $"+Math.round((j.salaryMin||0)/1000)+"K - below the $"+Math.round(jf/1000)+"K floor, so the top of this band is not guaranteed"));
+var nt=el("div","notes"+(OPEN["n:"+k]?"":" clamp"),j.notes);card.appendChild(nt);
+var nm=el("button","linkbtn morebtn",OPEN["n:"+k]?"Less":"More");nm.type="button";nm.hidden=true;
+nm.onclick=(function(kk){return function(){OPEN["n:"+kk]=!OPEN["n:"+kk];renderGrid();};})(k);
+card.appendChild(nm);NOTECHK.push([nt,nm]);
+card.appendChild(el("div","agel"+(isUrgent(j)?" urgent":""),ageLine(j)));
+
+var tools=el("div","cardtools");
+var ss=el("select","stagesel"+(rec.stage?" on":""));ss.setAttribute("aria-label","Pipeline stage for "+j.title);
+[["","Save to pipeline"]].concat(STAGES.map(function(x){return [x,STAGE_LABEL[x]];})).forEach(function(o){
+var op=document.createElement("option");op.value=o[0];op.textContent=o[1];if(rec.stage===o[0])op.selected=true;ss.appendChild(op);});
+ss.onchange=(function(kk){return function(){var r=getRec(kk);r.stage=this.value;saveState();renderAll();};})(k);
+tools.appendChild(ss);
+var ai=el("div","aitools");
+[["gap","Gap analysis"],["tailor","Tailor resume"]].forEach(function(p){
+var btn=el("button","linkbtn",p[1]);btn.type="button";
+btn.onclick=(function(jj,kind){return function(){openAI(jj,kind);};})(j,p[0]);
+ai.appendChild(btn);});
+tools.appendChild(ai);card.appendChild(tools);
+
+var act=el("div","actions");
+var exp=el("button","expand",OPEN[k]?"Hide details":"Details");
+exp.type="button";
+exp.onclick=function(){OPEN[jobKey(j)]=!OPEN[jobKey(j)];renderGrid();};
+act.appendChild(exp);
+var lr=el("div","linkrow");
+var a=el("a","apply","View / Apply");a.href=j.url;a.target="_blank";a.rel="noopener";
+lr.appendChild(a);act.appendChild(lr);
+card.appendChild(act);
+
+var det=el("div","detail"+(OPEN[jobKey(j)]?" open":""));
+var facts=el("div","intel");
+[["Tier",j.priority],["Level",j.level],["Role type",j.roleType],["Sector",j.sector]].forEach(function(r){
+if(!r[1])return;facts.appendChild(el("div","ik",r[0]));facts.appendChild(el("div",null,r[1]));});
+det.appendChild(facts);
+det.appendChild(fitBlock(j));
+det.appendChild(intelBlock(j));
+det.appendChild(noteBlock(j));
+card.appendChild(det);
+grid.appendChild(card);});
+NOTECHK.forEach(function(p){p[1].hidden=!(p[0].scrollHeight>p[0].clientHeight+1||!p[0].classList.contains("clamp"));});}
+
+function renderBoard(){
+var board=document.getElementById("board");board.innerHTML="";
+var tracked=JOBS.filter(function(j){return getRec(jobKey(j)).stage;}).length;
+document.getElementById("pipecount").textContent=
+tracked+" of "+JOBS.length+" roles are in your pipeline. Use the stage buttons on any card, or the arrows below, to move a role along.";
+var pn=document.querySelector("#stat-pipeline .n");
+if(pn)pn.textContent=tracked;
+var ac=document.getElementById("actcount");
+if(ac)ac.textContent=tracked?(tracked+" role"+(tracked===1?"":"s")+" saved"):"No roles saved yet - click Interested on any role to save it";
+STAGES.forEach(function(s){
+var col=el("div","col");
+var head=el("div","colhead");
+head.appendChild(el("div","colname",STAGE_LABEL[s]));
+var inCol=JOBS.filter(function(j){return getRec(jobKey(j)).stage===s;});
+head.appendChild(el("div","colcount",String(inCol.length)));
+col.appendChild(head);
+if(!inCol.length)col.appendChild(el("div","colempty","Nothing here yet"));
+inCol.sort(function(a,b){return b.score-a.score;}).forEach(function(j){
+var c=el("div","pcard");
+c.appendChild(el("div","pt",j.title));
+c.appendChild(el("div","pc",j.company));
+c.appendChild(el("div","pm",j.score+" fit - "+j.salary));
+var n=getRec(jobKey(j)).notes;
+if(n)c.appendChild(el("div","pn",n));
+var mb=el("div","movebar");
+var back=el("button","movebtn","< Back");back.type="button";
+back.onclick=function(){moveStage(jobKey(j),-1);};
+var fwd=el("button","movebtn","Next >");fwd.type="button";
+fwd.onclick=function(){moveStage(jobKey(j),1);};
+mb.appendChild(back);mb.appendChild(fwd);
+c.appendChild(mb);
+col.appendChild(c);
+});
+board.appendChild(col);
+});
+}
+
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function mk(id,cfg){
+if(CHARTS[id]){CHARTS[id].destroy();}
+var ctx=document.getElementById(id);
+if(!ctx)return;
+CHARTS[id]=new Chart(ctx,cfg);
+}
+
+function renderCharts(){
+if(typeof Chart==="undefined")return;
+var textC=css("--text")||"#e8eefb";
+var mutedC=css("--muted")||"#94a3b8";
+var lineC=css("--line")||"#2a3752";
+Chart.defaults.color=mutedC;
+Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif";
+
+var secs=["Defense","Federal Civilian","State Gov","Commercial"];
+var secCounts=secs.map(function(s){return JOBS.filter(function(j){return j.sector===s;}).length;});
+mk("c-sector",{type:"doughnut",
+data:{labels:secs,datasets:[{data:secCounts,
+backgroundColor:["#f97316","#2dd4bf","#60a5fa","#22c55e"],borderWidth:0}]},
+options:{responsive:true,maintainAspectRatio:false,cutout:"58%",
+plugins:{legend:{position:"right",labels:{boxWidth:12,padding:14}}}}});
+
+var bands=["High 85-100","Medium 75-84","Stretch 65-74"];
+var bandCounts=[
+JOBS.filter(function(j){return j.score>=85;}).length,
+JOBS.filter(function(j){return j.score>=75&&j.score<85;}).length,
+JOBS.filter(function(j){return j.score<75;}).length];
+mk("c-score",{type:"bar",
+data:{labels:bands,datasets:[{data:bandCounts,
+backgroundColor:["#22c55e","#eab308","#f97316"],borderRadius:6}]},
+options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{y:{beginAtZero:true,ticks:{precision:0},grid:{color:lineC}},x:{grid:{display:false}}}}});
+
+var byComp=JOBS.slice().sort(function(a,b){return (b.salaryMax||0)-(a.salaryMax||0);}).slice(0,12);
+var floorLine={id:"floorLine",afterDatasetsDraw:function(c){
+if(!c.scales||!c.scales.x)return;
+var x=c.scales.x.getPixelForValue(150);
+var g=c.ctx;g.save();
+g.strokeStyle="#f97316";g.lineWidth=2;g.setLineDash([5,4]);
+g.beginPath();g.moveTo(x,c.chartArea.top);g.lineTo(x,c.chartArea.bottom);g.stroke();
+g.setLineDash([]);g.fillStyle="#f97316";g.font="bold 10px -apple-system,sans-serif";
+g.textAlign="left";g.fillText("$150K floor",x+4,c.chartArea.top+11);
+g.restore();}};
+mk("c-comp",{type:"bar",plugins:[floorLine],
+data:{labels:byComp.map(function(j){return j.company;}),
+datasets:[
+{label:"Band minimum",data:byComp.map(function(j){return (j.salaryMin||0)/1000;}),
+backgroundColor:"#334155",borderRadius:4,stack:"s"},
+{label:"Band above minimum",data:byComp.map(function(j){return ((j.salaryMax||0)-(j.salaryMin||0))/1000;}),
+backgroundColor:"#38bdf8",borderRadius:4,stack:"s"}]},
+options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
+plugins:{legend:{position:"bottom",labels:{boxWidth:12}},
+tooltip:{callbacks:{label:function(c){
+var j=byComp[c.dataIndex];
+return j.salary;}}}},
+scales:{x:{stacked:true,grid:{color:lineC},ticks:{callback:function(v){return "$"+v+"K";}}},
+y:{stacked:true,grid:{display:false},ticks:{font:{size:11}}}}}});
+
+var dims=["leadership","domain","remote","comp","industry"];
+var avg=dims.map(function(d){
+var t=0,n=0;
+JOBS.forEach(function(j){if(j.fit&&j.fit[d]){t+=j.fit[d];n++;}});
+return n?(t/n).toFixed(2):0;});
+mk("c-radar",{type:"radar",
+data:{labels:["Leadership scope","Domain match","Remote confidence","Comp clears floor","Industry transfer"],
+datasets:[{label:"Average across slate",data:avg,
+backgroundColor:"rgba(56,189,248,.22)",borderColor:"#38bdf8",pointBackgroundColor:"#38bdf8",borderWidth:2}]},
+options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{r:{min:0,max:5,ticks:{stepSize:1,backdropColor:"transparent"},
+grid:{color:lineC},angleLines:{color:lineC},pointLabels:{font:{size:11}}}}}});
+
+var funnel=STAGES.map(function(s){
+return JOBS.filter(function(j){return getRec(jobKey(j)).stage===s;}).length;});
+mk("c-funnel",{type:"bar",
+data:{labels:STAGES.map(function(s){return STAGE_LABEL[s];}),
+datasets:[{data:funnel,
+backgroundColor:["#a855f7","#38bdf8","#2dd4bf","#eab308","#22c55e"],borderRadius:6}]},
+options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{y:{beginAtZero:true,ticks:{precision:0},grid:{color:lineC}},x:{grid:{display:false}}}}});
+
+var roles=[];
+JOBS.forEach(function(j){if(roles.indexOf(j.roleType)<0)roles.push(j.roleType);});
+roles.sort();
+var roleCounts=roles.map(function(r){return JOBS.filter(function(j){return j.roleType===r;}).length;});
+mk("c-role",{type:"bar",
+data:{labels:roles,datasets:[{data:roleCounts,backgroundColor:"#818cf8",borderRadius:5}]},
+options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",
+plugins:{legend:{display:false}},
+scales:{x:{beginAtZero:true,ticks:{precision:0},grid:{color:lineC}},
+y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+}
+
+function trackedJobs(){return JOBS.filter(function(j){return getRec(jobKey(j)).stage;});}
+function actMsg(s){var m=document.getElementById("actmsg");if(!m)return;m.textContent=s;
+setTimeout(function(){if(m)m.textContent="";},4000);}
+function pipeText(full){
+var L=trackedJobs();
+var o=["My tracked roles ("+L.length+")",""];
+STAGES.forEach(function(s){
+var inS=L.filter(function(j){return getRec(jobKey(j)).stage===s;});
+if(!inS.length)return;
+o.push(STAGE_LABEL[s].toUpperCase()+" ("+inS.length+")");
+inS.forEach(function(j){
+o.push("  - "+j.title+" | "+j.company);
+if(full)o.push("    "+j.location+" | "+j.salary+" | fit "+j.score+(j.expiresOn?" | closes "+j.expiresOn:""));
+o.push("    "+j.url);
+var n=getRec(jobKey(j)).notes;
+if(full&&n)o.push("    Notes: "+n.replace(/\s+/g," "));
+});
+o.push("");});
+o.push("Dashboard: https://skillzstacking2023.github.io/marie-job-search/");
+return o.join("\n");}
+function noneTracked(){
+alert("Nothing tracked yet.\n\nOpen the Opportunities tab and click a stage button - Interested, Applied, Screening, Interview or Offer - on any role you want to keep.");}
+function emailPipeline(){
+var L=trackedJobs();if(!L.length){noneTracked();return;}
+var subj="My tracked roles - "+L.length+" role"+(L.length===1?"":"s");
+var body=pipeText(true);
+try{navigator.clipboard.writeText(subj+"\n\n"+body);}catch(e){}
+var mk=function(b){return "https://mail.google.com/mail/?view=cm&fs=1&su="+encodeURIComponent(subj)+"&body="+encodeURIComponent(b);};
+var u=mk(body);
+if(u.length>7000)u=mk(pipeText(false));
+if(u.length>7000){copyPipeline();actMsg("Too many to fit in a compose link - copied to your clipboard instead");return;}
+var w=window.open(u,"_blank","noopener");
+if(!w){actMsg("Popup blocked - the list is copied to your clipboard instead");return;}
+actMsg("Opened Gmail with "+L.length+" role"+(L.length===1?"":"s")+" - also copied to your clipboard");}
+function fallbackCopy(txt){
+var ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";
+document.body.appendChild(ta);ta.select();
+try{document.execCommand("copy");actMsg("Copied to clipboard");}catch(e){actMsg("Could not copy automatically");}
+document.body.removeChild(ta);}
+function copyPipeline(){
+var L=trackedJobs();
+if(!L.length){noneTracked();return;}
+var txt=pipeText(true);
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(txt).then(function(){actMsg("Copied "+L.length+" role"+(L.length===1?"":"s")+" to clipboard");},function(){fallbackCopy(txt);});
+}else{fallbackCopy(txt);}}
+function csvEsc(s){return '"'+String(s==null?"":s).replace(/"/g,'""')+'"';}
+function dl(text,name,mime){
+var b=new Blob([text],{type:mime});var a=document.createElement("a");
+a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+setTimeout(function(){URL.revokeObjectURL(a.href);document.body.removeChild(a);},600);}
+function today(){return new Date().toISOString().slice(0,10);}
+function downloadCSV(){
+var L=trackedJobs();
+if(!L.length){noneTracked();return;}
+var head=["Stage","Title","Company","Sector","Level","Location","Salary","Band min","Band max","Fit score","Priority","Closes","URL","My notes"];
+var rows=[head.map(csvEsc).join(",")];
+L.forEach(function(j){var r=getRec(jobKey(j));
+rows.push([STAGE_LABEL[r.stage]||"",j.title,j.company,j.sector,j.level,j.location,j.salary,
+j.salaryMin||"",j.salaryMax||"",j.score,j.priority,j.expiresOn||"",j.url,r.notes||""].map(csvEsc).join(","));});
+dl(rows.join("\n"),"marie-tracked-roles-"+today()+".csv","text/csv;charset=utf-8");
+actMsg("Downloaded "+L.length+" role"+(L.length===1?"":"s")+" as CSV");}
+function backupJSON(){
+dl(JSON.stringify({saved:today(),state:STATE},null,2),"marie-pipeline-backup-"+today()+".json","application/json");
+actMsg("Backup downloaded - keep it somewhere safe");}
+function restoreJSON(ev){
+var f=ev.target.files&&ev.target.files[0];
+if(!f){return;}
+var rd=new FileReader();
+rd.onload=function(){
+try{
+var d=JSON.parse(rd.result);
+var st=(d&&d.state)?d.state:d;
+if(!st||typeof st!=="object"||Array.isArray(st))throw new Error("that file is not a pipeline backup");
+STATE=st;saveState();renderAll();
+actMsg("Pipeline restored from "+((d&&d.saved)?d.saved:"backup"));
+}catch(e){alert("Could not read that backup file.\n\n"+e.message);}};
+rd.onerror=function(){alert("Could not read that file.");};
+rd.readAsText(f);ev.target.value="";}
+function renderAll(){renderGrid();renderBoard();renderCharts();}
+
+
+var WN_KEY="mm_wn_seen";
+var WHATSNEW=[
+{id:"2026-10-07-a-launch",date:"October 7, 2026",title:"Your dashboard is live",
+ body:"Roles are checked against their live postings, scored against your profile, and refreshed on a schedule. Save roles to your pipeline, search and filter by track, work model and level, and use the Gap analysis and Tailor resume links to build a ready-made prompt for whichever AI assistant you use - attach your resume there and paste."}
+];
+function wnUnseen(){var s=localStorage.getItem(WN_KEY)||"";return WHATSNEW.filter(function(w){return w.id>s;});}
+function updateWnDot(){var b=document.getElementById("wnbtn");if(!b)return;var n=wnUnseen().length;b.textContent=n?("What's new ("+n+")"):"What's new";}
+function dismissWhatsNew(){localStorage.setItem(WN_KEY,WHATSNEW.map(function(w){return w.id;}).sort().pop());var b=document.getElementById("whatsnew");if(b)b.style.display="none";updateWnDot();}
+function renderWhatsNew(showAll){
+var box=document.getElementById("whatsnew");if(!box)return;
+var items=showAll?WHATSNEW:wnUnseen();
+box.innerHTML="";
+if(!items.length){box.style.display="none";updateWnDot();return;}
+box.style.display="block";
+var h=document.createElement("div");h.className="wnhead";
+var sp=document.createElement("span");sp.textContent=showAll?"What's new":"New since your last visit";
+h.appendChild(sp);
+var x=document.createElement("button");x.type="button";x.className="wnclose";x.textContent="Got it";
+x.onclick=dismissWhatsNew;h.appendChild(x);
+box.appendChild(h);
+items.forEach(function(w){
+var it=document.createElement("div");it.className="wnitem";
+var a=document.createElement("div");a.className="wntitle";a.textContent=w.title;it.appendChild(a);
+var c=document.createElement("div");c.className="wnbody";c.textContent=w.body;it.appendChild(c);
+var d=document.createElement("div");d.className="wndate";d.textContent=w.date;it.appendChild(d);
+box.appendChild(it);});
+updateWnDot();}
+function buildStats(){
+var s=document.getElementById("stats");s.innerHTML="";
+function stat(n,l){var d=el("div","stat");d.appendChild(el("div","n",n));d.appendChild(el("div","l",l));return d;}
+var high=JOBS.filter(function(j){return j.priority==="High";}).length;
+var vp=JOBS.filter(function(j){return j.level==="VP";}).length;
+var noClr=JOBS.filter(function(j){return !j.clearance||j.clearance==="None";}).length;
+var floorSafe=JOBS.filter(function(j){return (j.salaryMin||0)>=150000;}).length;
+var tracked=JOBS.filter(function(j){return getRec(jobKey(j)).stage;}).length;
+var closing=JOBS.filter(isUrgent).length;
+s.appendChild(stat(JOBS.length,"Verified roles"));
+s.appendChild(stat(high,"High fit"));
+var fs=stat(floorSafe,"Min clears floor");
+fs.title="Roles where even the BOTTOM of the published band clears the $150K floor";
+if(floorSafe<JOBS.length)fs.style.borderColor="#eab308";
+s.appendChild(fs);
+var pt=stat(tracked,"In pipeline");
+pt.id="stat-pipeline";
+s.appendChild(pt);
+var roles=[];
+JOBS.forEach(function(j){if(roles.indexOf(j.roleType)<0)roles.push(j.roleType);});
+roles.sort();
+var rsel=document.getElementById("role");
+roles.forEach(function(r){var o=document.createElement("option");o.value=r;o.textContent=r;rsel.appendChild(o);});
+}
+
+function showTab(btn){
+var mb=document.getElementById("minibar");if(mb){mb.classList.remove("show");mb.setAttribute("aria-hidden","true");}
+var tabs=document.querySelectorAll(".tab");
+for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");
+btn.classList.add("active");
+var panels=document.querySelectorAll(".panel");
+for(var k=0;k<panels.length;k++)panels[k].classList.remove("active");
+document.getElementById(btn.getAttribute("data-panel")).classList.add("active");
+if(btn.getAttribute("data-panel")==="p-analytics")renderCharts();
+}
+
+function toggleMore(force){
+var m=document.getElementById("morefilters"),b=document.getElementById("morebtn");
+var open=typeof force==="boolean"?force:!m.classList.contains("open");
+m.classList.toggle("open",open);b.setAttribute("aria-expanded",open?"true":"false");moreLabel();}
+function moreLabel(){
+var n=["priority","sector","level","role","stage"].filter(function(id){return val(id);}).length;
+var open=document.getElementById("morefilters").classList.contains("open");
+document.getElementById("morebtn").textContent=(open?"Fewer filters":"More filters")+(n?" ("+n+")":"");}
+function resetFilters(){
+["q","track","wm","priority","sector","level","role","comp","stage"].forEach(function(id){
+document.getElementById(id).value="";});
+document.getElementById("sort").value="score";
+document.getElementById("q2").value="";moreLabel();renderGrid();}
+
+function toggleTheme(){
+var cur=document.documentElement.getAttribute("data-theme")||"dark";
+var next=cur==="light"?"dark":"light";
+document.documentElement.setAttribute("data-theme",next);
+localStorage.setItem("tt_theme",next);
+document.getElementById("theme-btn").textContent=next==="light"?"Dark Mode":"Light Mode";
+renderCharts();
+}
+function initTheme(){
+var cur=document.documentElement.getAttribute("data-theme")||"dark";
+document.getElementById("theme-btn").textContent=cur==="light"?"Dark Mode":"Light Mode";
+/* until she picks a theme, follow the device setting as it changes */
+if(window.matchMedia)matchMedia("(prefers-color-scheme: light)").addEventListener("change",function(e){
+if(localStorage.getItem("tt_theme"))return;
+document.documentElement.setAttribute("data-theme",e.matches?"light":"dark");
+initTheme();renderCharts();});}
+/* Gap analysis / tailored resume: builds a prompt from this card's public job data.
+   Nothing is sent anywhere; it is pasted into the job seeker's own AI assistant chat with their resume. */
+function aiJobBlock(j){
+var L=["JOB I'M CONSIDERING"];
+L.push("Title: "+j.title,"Employer: "+j.company,"Level: "+(j.level||"not stated"),"Location: "+(j.location||"not stated"),"Compensation (as published): "+(j.salary||"not published"),"Track: "+(j.track||""));
+if(j.clearance&&j.clearance!=="None")L.push("Clearance: "+j.clearance);
+L.push("Posting: "+j.url);
+if(j.notes)L.push("Dashboard notes: "+j.notes);
+return L.join("\n");}
+function aiPrompt(j,kind){
+var head="I'm a senior program manager (PMP, MS Technical Management, active security clearance), and I'm considering the role below. I've attached my current resume.\n\n"+aiJobBlock(j)+
+"\n\nFirst, open the posting link and read the full job description. If you can't open it, stop and ask me to paste the description - don't guess the requirements from the job title.\n\n";
+if(kind==="gap")return head+
+"Then give me a gap analysis:\n"+
+"1. A table of every required and preferred qualification in the posting (program scope, contract types, budget and headcount, domain, certifications, clearance, customer), whether my resume shows it (Yes / Partly / No), and the resume evidence.\n"+
+"2. Hard barriers listed separately from gaps I can close or explain.\n"+
+"3. How this role's scope compares with my current scope - step up, lateral or step down - and what that means for the level and compensation I should negotiate.\n"+
+"4. My strongest selling points for this role, taken only from my resume, framed for a program leadership audience.\n"+
+"5. How to address each gap honestly in a cover letter or interview.\n"+
+"6. A verdict - apply now, apply with a plan, or skip - with the reason.\n\n"+
+"Rules: use only what's in my resume. Don't assume experience, tools, certifications or numbers I haven't listed. If something is unclear, ask me.";
+return head+
+"Then tailor my resume to this job.\n\n"+
+"Rules - these matter more than keyword matching:\n"+
+"- Use only facts from my resume. You may reorder, emphasise and rephrase, but never add a skill, tool, certification, title, date or number that isn't already there.\n"+
+"- If the posting asks for something my resume doesn't show, don't put it in the resume. List it under \"Gaps not added\" instead.\n"+
+"- Where the posting's wording truthfully describes something I've done, use its wording (it helps with applicant tracking systems).\n"+
+"- ATS-friendly format: one column, standard headings (Professional Summary, Core Competencies, Professional Experience, Certifications, Education), no tables, columns or graphics.\n"+
+"- State the clearance only as \"Active security clearance - details on request\"; never name a level.\n"+
+"- Keep headline metrics (contract value, headcount, award-fee ratings) exactly as they appear in my resume.\n"+"\nGive me:\n"+
+"1. The tailored resume, ready to paste into Word.\n"+
+"2. A short list of what you changed and why.\n"+
+"3. Gaps not added - requirements I don't show, so I can decide how to handle them.\n"+
+"4. Anything you need me to confirm before I send it.\n"+
+"Then offer to write a short cover letter using the same rules.";}
+function openAI(j,kind){
+var d=document.getElementById("aidlg");
+document.getElementById("aititle").textContent=(kind==="gap"?"Gap analysis":"Tailor my resume")+": "+j.title;
+document.getElementById("aisub").textContent=j.company+" - "+(j.city||j.location||j.market||"")+". You can edit the prompt below before copying it.";
+document.getElementById("aitext").value=aiPrompt(j,kind);
+document.getElementById("aimsg").textContent="";
+if(d.showModal)d.showModal();else d.setAttribute("open","");
+document.getElementById("aitext").scrollTop=0;document.getElementById("aigo").focus();}
+function aiCopy(){
+var txt=document.getElementById("aitext").value,m=document.getElementById("aimsg");
+function ok(){m.textContent="Copied - now paste it into your AI assistant with your resume attached.";}
+function fb(){var ta=document.getElementById("aitext");ta.focus();ta.select();
+try{document.execCommand("copy");ok();}catch(e){m.textContent="Select the text above and copy it (Cmd+C / Ctrl+C).";}}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok,fb);else fb();}
+initTheme();
+renderWhatsNew(false);
+
+fetch("jobs.json?v="+Date.now(),{cache:"no-store"})
+.then(function(r){return r.json();})
+.then(function(data){
+JOBS=data.sort(function(a,b){return b.score-a.score;});
+migrateOld();
+markNewJobs();
+buildStats();
+var vdates=[];
+JOBS.forEach(function(j){if(j.verified&&vdates.indexOf(j.verified)<0)vdates.push(j.verified);});
+vdates.sort().reverse();
+var urgent=JOBS.filter(isUrgent).length;
+document.getElementById("updated").textContent=
+"Last verified against live postings: "+(vdates[0]||"not recorded")+
+" - "+JOBS.length+" roles, every one re-checked for work model, level and published salary"+
+(urgent?" - "+urgent+" closing within 7 days":"");
+renderAll();
+initMinibar();
+["q","track","wm","priority","sector","level","role","comp","stage","sort"].forEach(function(id){
+document.getElementById(id).addEventListener(id==="q"?"input":"change",function(){moreLabel();renderGrid();});});
+})
+.catch(function(e){
+document.getElementById("grid").innerHTML=
+'<div class="empty">Could not load jobs.json - '+e.message+'</div>';});
+</script>
+
+<!-- verified-badge-v1 : renders lastVerified ("Confirmed open ...") on each job card. Additive and fail-safe: if jobs.json has no lastVerified field, nothing is drawn. -->
+<script>
+(function(){
+  var MARK="verified-badge-v1";
+  function info(d){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(d||""))return null;
+    var t=new Date(d+"T00:00:00"), n=new Date();
+    n=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+    var days=Math.round((n-t)/864e5);
+    if(days<0)days=0;
+    var lbl=days===0?"today":days===1?"yesterday":days+" days ago";
+    return {lbl:lbl,days:days};
+  }
+  function norm(u){try{return new URL(u,location.href).href.replace(/[#?].*$/,"");}catch(e){return u||"";}}
+  function paint(){
+    fetch("jobs.json?cb="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(jobs){
+      if(!Array.isArray(jobs))return;
+      var map={};
+      jobs.forEach(function(j){ var v=j.lastVerified||j.verified; if(j.url&&v) map[norm(j.url)]=v; });
+      if(!Object.keys(map).length)return;
+      document.querySelectorAll(".job").forEach(function(card){
+        var a=card.querySelector("a.apply")||card.querySelector("a[href]");
+        if(!a)return;
+        var f=info(map[norm(a.getAttribute("href"))]);
+        var old=card.querySelector("."+MARK);
+        if(!f){ if(old)old.remove(); return; }
+        var s=old||document.createElement("span");
+        s.className=MARK;
+        s.textContent=(f.days>3?"Needs recheck - last confirmed ":"Confirmed open ")+f.lbl;
+        s.title="Date this posting was last opened and confirmed still accepting applications.";
+        s.className=MARK+" vbadge"+(f.days>3?" stale":"");
+        if(!old&&a.parentNode)a.parentNode.insertBefore(s,a);
+      });
+    }).catch(function(){});
+  }
+  function boot(){ setTimeout(paint,1000); setTimeout(paint,3000);
+    try{ var g=document.querySelector("#grid,.grid");
+      if(g)new MutationObserver(function(){clearTimeout(window.__vbT);window.__vbT=setTimeout(paint,250);}).observe(g,{childList:true});
+    }catch(e){}
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+})();
+</script>
+</body>
+</html>
