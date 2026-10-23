@@ -188,6 +188,53 @@
   "id": 4
  },
  {
+  "key": "nightwing--senior-program-manager--annapolis-md",
+  "track": "Program Management",
+  "score": 84,
+  "title": "Senior Program Manager",
+  "company": "Nightwing",
+  "sector": "Defense",
+  "level": "Senior / Lead",
+  "location": "Annapolis, MD",
+  "workModel": "Onsite - cleared site",
+  "salary": "$147,000-$296,000 (posted band)",
+  "salaryMin": 147000,
+  "salaryMax": 296000,
+  "roleType": "Program Management",
+  "priority": "Medium",
+  "clearance": "Active Required",
+  "url": "https://clearedjobs.net/job/senior-program-manager-annapolis-maryland-1958374",
+  "notes": "Leads a large classified records and information management program for an intelligence customer - work is SCIF-based with limited telework (the posting does not say how much) - travel 10-20% within about 100 miles - posted band starts just under the $150K floor - mid-size company; prime-contract status not verified - your active clearance is a differentiator",
+  "posted": "2026-10-22",
+  "postedDate": "2026-10-22",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Read the full Nightwing posting on the ClearedJobs listing this run: reference JR102191, posted October 22, 2026, location Annapolis MD, band $147,000-$296,000, SCIF-based work with limited telework, travel up to 10-20%. Did not check Nightwing's own careers page.",
+  "fit": {
+   "leadership": 5,
+   "domain": 3,
+   "remote": 5,
+   "comp": 5,
+   "industry": 4
+  },
+  "fitNotes": {
+   "leadership": "Posting says the role provides strategic leadership and day-to-day direction for a large, diverse, geographically dispersed workforce.",
+   "domain": "Classified records, classification management and digitization program - more records management than IT or cyber.",
+   "remote": "SCIF-based work with limited telework in Annapolis MD; the posting does not quantify the telework.",
+   "comp": "Posted band $147,000-$296,000; the minimum is just under the $150K floor.",
+   "industry": "Intelligence Community support contractor."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "Not determined",
+   "remotePolicy": "Limited telework",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 5
+ },
+ {
   "key": "disa--supervisory-it-program-manager--fort-meade-md",
   "track": "Program Management",
   "score": 82,
@@ -232,7 +279,54 @@
   },
   "verified": "2026-10-23",
   "lastVerified": "2026-10-23",
-  "id": 5
+  "id": 6
+ },
+ {
+  "key": "caci--senior-program-manager--annapolis-junction-md",
+  "track": "Program Management",
+  "score": 82,
+  "title": "Senior Program Manager",
+  "company": "CACI",
+  "sector": "Defense",
+  "level": "Senior / Lead",
+  "location": "Annapolis Junction area, MD",
+  "workModel": "Onsite - cleared site",
+  "salary": "$131,800-$290,000 (posted band)",
+  "salaryMin": 131800,
+  "salaryMax": 290000,
+  "roleType": "Program Management",
+  "priority": "Medium",
+  "clearance": "Active Required",
+  "url": "https://clearedjobs.net/job/senior-program-manager-fort-meade-maryland-1931701",
+  "notes": "Senior Program Manager responsible for overall management and completion of projects, tasks or delivery orders in the Annapolis Junction, MD area - posting does not state a work model - listed location is the Annapolis Junction area - local travel up to 10% - your active clearance is a differentiator - band minimum is below the $150K floor",
+  "posted": "2026-10-22",
+  "postedDate": "2026-10-22",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Read the CACI posting text on the ClearedJobs listing this run: posted October 22, 2026, band $131,800-$290,000, clearance required to start, local travel up to 10%; no work model or telework stated.",
+  "fit": {
+   "leadership": 4,
+   "domain": 4,
+   "remote": 5,
+   "comp": 4,
+   "industry": 5
+  },
+  "fitNotes": {
+   "leadership": "Overall management of projects, tasks or delivery orders within a program.",
+   "domain": "Cleared national-security program management.",
+   "remote": "Listed in the Annapolis Junction MD area; the posting does not state a work model or telework.",
+   "comp": "Posted band $131,800-$290,000; the maximum is far above the floor, the minimum is below it.",
+   "industry": "Large defense and intelligence contractor."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "Chantilly, VA",
+   "remotePolicy": "Work model not stated",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 7
  },
  {
   "key": "leidos--senior-program-manager-cdes--odenton-md",
@@ -279,7 +373,54 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "id": 6
+  "id": 8
+ },
+ {
+  "key": "peraton--technical-program-manager-satcom-operations--fort-meade-md",
+  "track": "Program Management",
+  "score": 80,
+  "title": "Technical Program Manager - SATCOM Operations",
+  "company": "Peraton",
+  "sector": "Defense",
+  "level": "Senior / Lead",
+  "location": "Fort Meade, MD",
+  "workModel": "Onsite - cleared site",
+  "salary": "$146,000-$234,000 (target range)",
+  "salaryMin": 146000,
+  "salaryMax": 234000,
+  "roleType": "Program Management",
+  "priority": "Medium",
+  "clearance": "Active Required",
+  "url": "https://www.careers.peraton.com/jobs/technical-program-manager-satcom-operations-fort-meade-maryland-165948-jobs--project-management--",
+  "notes": "Single point of accountability for a 24x7 SATCOM operations and maintenance program - fully onsite at Fort Meade, the posting says no remote or telework - work includes operations, engineering, cybersecurity and subcontractor management - your active clearance is a differentiator - the posted range starts just under the $150K floor",
+  "posted": "2026-10-13",
+  "postedDate": "2026-10-13",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Opened the Peraton careers posting this run: requisition 2026-165948, Fort Meade MD, telecommute listed as no remote/telework allowed, target salary range $146,000-$234,000; posted date taken from the ClearedJobs listing (October 13, 2026).",
+  "fit": {
+   "leadership": 5,
+   "domain": 4,
+   "remote": 5,
+   "comp": 4,
+   "industry": 5
+  },
+  "fitNotes": {
+   "leadership": "Single point of accountability for all program performance across operations, engineering, cybersecurity and subcontractor management.",
+   "domain": "SATCOM operations and maintenance for a DoD customer - operations-heavy rather than cyber-engineering.",
+   "remote": "Posting states no remote or telework allowed, with Fort Meade MD as the location.",
+   "comp": "Target range $146,000-$234,000; the minimum is just under the $150K floor.",
+   "industry": "Large national-security contractor."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "McLean, VA",
+   "remotePolicy": "No remote or telework",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 9
  },
  {
   "key": "leidos--program-manager--laurel-md",
@@ -326,7 +467,7 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "id": 7
+  "id": 10
  },
  {
   "key": "leidos--program-manager--annapolis-junction-md",
@@ -373,7 +514,54 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "id": 8
+  "id": 11
+ },
+ {
+  "key": "peraton--technology-program-management-director--fort-meade-md",
+  "track": "Program Management",
+  "score": 76,
+  "title": "Technology Program Management Director",
+  "company": "Peraton",
+  "sector": "Defense",
+  "level": "Director",
+  "location": "Fort Meade, MD",
+  "workModel": "Onsite - cleared site",
+  "salary": "$176,000-$282,000 (target range)",
+  "salaryMin": 176000,
+  "salaryMax": 282000,
+  "roleType": "PMO Leadership",
+  "priority": "Medium",
+  "clearance": "Active Required",
+  "url": "https://www.careers.peraton.com/jobs/technology-program-management-director-fort-meade-maryland-172120-jobs--project-management--",
+  "notes": "Manages a directorate through subordinate program managers - Fort Meade area - occasional telework flexibility, must live near the work location - heavy on growth and proposal work for the Defense Information Systems Agency and DoD network community, and the posting asks for experience supporting that agency - 16 years experience required - the whole range clears the $150K floor",
+  "posted": "2026-10-19",
+  "postedDate": "2026-10-19",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Opened the Peraton careers posting this run: requisition 2026-172120, Fort Meade MD area, Secret clearance, telecommute flexible for occasional telework, target salary range $176,000-$282,000; posted date taken from the ClearedJobs listing (October 19, 2026).",
+  "fit": {
+   "leadership": 5,
+   "domain": 3,
+   "remote": 5,
+   "comp": 5,
+   "industry": 4
+  },
+  "fitNotes": {
+   "leadership": "Manages a directorate with supervisory and developmental responsibility through subordinate program managers.",
+   "domain": "Business-development heavy and tied to one agency (DISA) - a domain stretch.",
+   "remote": "Fort Meade MD area; posting says flexible for occasional telework and the employee must be local to the work location.",
+   "comp": "Target range $176,000-$282,000; entirely above the $150K floor.",
+   "industry": "Large national-security contractor."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "McLean, VA",
+   "remotePolicy": "Occasional telework",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 12
  },
  {
   "key": "defense-health-agency--supervisory-program-manager--fort-detrick-md",
@@ -420,7 +608,7 @@
   },
   "verified": "2026-10-23",
   "lastVerified": "2026-10-23",
-  "id": 9
+  "id": 13
  },
  {
   "key": "booz-allen--technical-program-manager-lead--annapolis-junction-md",
@@ -467,7 +655,7 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "id": 10
+  "id": 14
  },
  {
   "key": "maryland-department-of-labor--program-manager-senior-ii-deputy-of-customer-services--baltimore-md",
@@ -514,7 +702,54 @@
   },
   "verified": "2026-10-23",
   "lastVerified": "2026-10-23",
-  "id": 11
+  "id": 15
+ },
+ {
+  "key": "peraton--enterprise-it-lead-space-programs--greenbelt-md",
+  "track": "Cyber / RMF Programs",
+  "score": 78,
+  "title": "Enterprise IT Lead / Space Programs",
+  "company": "Peraton",
+  "sector": "Defense",
+  "level": "Senior / Lead",
+  "location": "Greenbelt, MD (remote work allowed)",
+  "workModel": "Remote",
+  "salary": "$135,000-$216,000 (target range)",
+  "salaryMin": 135000,
+  "salaryMax": 216000,
+  "roleType": "Cybersecurity Programs",
+  "priority": "Medium",
+  "clearance": "Active Required",
+  "url": "https://www.careers.peraton.com/jobs/enterprise-it-lead-space-programs-greenbelt-maryland-172526-jobs--project-management--",
+  "notes": "Senior leader for program-wide cybersecurity governance - policy, risk management and compliance across multiple security boundaries, including operational-technology environments - works with ISMs, ISSOs and ISSEs - posting says remote work allowed 100% - not a pure program-management title - posted date not published - band minimum is below the $150K floor",
+  "posted": "",
+  "postedDate": "",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Opened the Peraton careers posting this run: requisition 2026-172526, location Greenbelt MD, telecommute listed as remote work allowed 100%, Secret clearance, target salary range $135,000-$216,000; posting date not shown.",
+  "fit": {
+   "leadership": 4,
+   "domain": 4,
+   "remote": 5,
+   "comp": 4,
+   "industry": 4
+  },
+  "fitNotes": {
+   "leadership": "Described as the senior leader responsible for program-wide cybersecurity governance.",
+   "domain": "Cybersecurity policy, risk management and compliance for a space program - close to your RMF and cyber oversight work.",
+   "remote": "Posting lists Greenbelt MD and states remote work allowed 100%.",
+   "comp": "Target range $135,000-$216,000; the maximum clears the $150K floor, the minimum does not.",
+   "industry": "Large national-security contractor, space programs."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "McLean, VA",
+   "remotePolicy": "Remote work allowed 100%",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 16
  },
  {
   "key": "maryland-djs--security-and-privacy-officer-admin-program-manager-iv--baltimore-md",
@@ -561,6 +796,6 @@
   },
   "verified": "2026-10-23",
   "lastVerified": "2026-10-23",
-  "id": 12
+  "id": 17
  }
 ]
