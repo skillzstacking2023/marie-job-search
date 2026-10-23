@@ -300,7 +300,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <div class="controls">
 <input type="search" id="q" placeholder="Search title, company, notes, intel..." aria-label="Search jobs">
 <select id="track"><option value="">Both tracks</option><option value="Program Management">Program Management (Sr PM / Deputy PM / Director, $150K+)</option><option value="Cyber / RMF Programs">Cyber / RMF Programs ($150K+)</option></select>
-<select id="wm"><option value="">Any work model</option><option value="Remote">100% remote</option><option value="Onsite - cleared site">Onsite - cleared site</option></select>
+<select id="wm"><option value="">Any work model</option><option value="Remote">100% remote</option><option value="Onsite - cleared site">Onsite - cleared site</option><option value="Onsite - Maryland government">Onsite - Maryland government</option></select>
 <select id="comp">
 <option value="">Any compensation</option>
 <option value="min150000">Guaranteed $150K+ (band minimum)</option>
@@ -356,7 +356,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <p>Every role on this dashboard has been opened and read against the live posting before it was published. Nothing is listed on the strength of a search-result summary. Four things are checked on each one:</p>
 <ul>
 <li><strong>Still open</strong> - no expired, filled or closed postings</li>
-<li><strong>Work model</strong> - either genuinely 100% remote and open to someone living in Maryland, or onsite at a cleared site within commuting distance. If a posting never states where the work is done, it is dropped rather than assumed. Hybrid roles are not included</li>
+<li><strong>Work model</strong> - either genuinely 100% remote and open to someone living in Maryland, or onsite at a cleared site within commuting distance, or onsite with a Maryland state or federal government employer. If a posting never states where the work is done, it is dropped rather than assumed. Hybrid roles are not included</li>
 <li><strong>Program leadership level</strong> - Senior Program Manager, Deputy Program Manager, Program Director, PMO lead and above. Coordinator, analyst and project-lead seats do not belong here</li>
 <li><strong>The salary band that applies to Maryland</strong>, not a higher band published for another state</li>
 </ul>
@@ -392,14 +392,6 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <h2>New jobs and finding your place</h2>
 <p>Jobs added since your last visit carry a <strong>New</strong> badge, and the line above the cards says how many there are. Choose <strong>Sort: new since last visit</strong> to put them first. Once you scroll past the filters, a search bar stays pinned to the top of the screen; <strong>Filters</strong> takes you back to the full set.</p>
-
-<h2>Gap analysis and tailored resume</h2>
-<p>Every card has two links, <strong>Gap analysis</strong> and <strong>Tailor resume</strong>:</p>
-<ul>
-<li><strong>Gap analysis</strong> - compares the posting with your resume: what you match, what's missing, which gaps are hard barriers and which you can close or explain, and whether it's worth applying.</li>
-<li><strong>Tailor resume</strong> - rewrites your resume for that posting, using only what's already in it. Anything the job asks for that you don't have is listed separately instead of being added.</li>
-</ul>
-<p>Each link prepares a prompt with that job's details. Click <strong>Copy prompt</strong>, then open whichever AI assistant you use - ChatGPT, Claude, Gemini, Microsoft Copilot or another - start a new chat, attach your resume, paste and send. Your resume and the results stay in your own chat - nothing is posted to this page. Always read a tailored resume before you send it.</p>
 
 <h2>What the tiles at the top mean</h2>
 <ul>
@@ -481,7 +473,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 </div>
 </dialog>
 
-<footer>Auto-refreshed daily. Built for Marie Daugherty. Scores reflect fit to your profile: senior and deputy program management, a $150K floor, remote or at a cleared site near home, in Defense, Federal Civilian, State Government and Commercial IT. Every role here was opened and re-checked against the live posting for work model, level and published salary - roles that failed were removed rather than downgraded. Where a salary is an estimate rather than a published band, the card says so. Pipeline stages and notes are saved in this browser only.</footer>
+<footer>Auto-refreshed daily. Built for Marie Daugherty. Scores reflect fit to your profile: senior and deputy program management, a $150K floor, remote, at a cleared site near home, or with a Maryland state or federal employer, in Defense, Federal Civilian, State Government and Commercial IT. Every role here was opened and re-checked against the live posting for work model, level and published salary - roles that failed were removed rather than downgraded. Where a salary is an estimate rather than a published band, the card says so. Pipeline stages and notes are saved in this browser only.</footer>
 
 <script>
 var JOBS=[];
@@ -690,7 +682,7 @@ var op=document.createElement("option");op.value=o[0];op.textContent=o[1];if(rec
 ss.onchange=(function(kk){return function(){var r=getRec(kk);r.stage=this.value;saveState();renderAll();};})(k);
 tools.appendChild(ss);
 var ai=el("div","aitools");
-[["gap","Gap analysis"],["tailor","Tailor resume"]].forEach(function(p){
+[].forEach(function(p){
 var btn=el("button","linkbtn",p[1]);btn.type="button";
 btn.onclick=(function(jj,kind){return function(){openAI(jj,kind);};})(j,p[0]);
 ai.appendChild(btn);});
@@ -936,8 +928,8 @@ function renderAll(){renderGrid();renderBoard();renderCharts();}
 
 var WN_KEY="mm_wn_seen";
 var WHATSNEW=[
-{id:"2026-10-07-a-launch",date:"October 7, 2026",title:"Your dashboard is live",
- body:"Roles are checked against their live postings, scored against your profile, and refreshed on a schedule. Save roles to your pipeline, search and filter by track, work model and level, and use the Gap analysis and Tailor resume links to build a ready-made prompt for whichever AI assistant you use - attach your resume there and paste."}
+{id:"2026-10-23-a-govt",date:"October 23, 2026",title:"Maryland state and federal government roles added",
+ body:"The dashboard now includes program and project management roles with Maryland state agencies and federal employers, alongside remote and cleared-site roles. Use the Work model filter (Onsite - Maryland government) or the Sector filter (State Gov, Federal Civilian) to see only those. Each card says whether the posting is open to the public and shows the pay band."}
 ];
 function wnUnseen(){var s=localStorage.getItem(WN_KEY)||"";return WHATSNEW.filter(function(w){return w.id>s;});}
 function updateWnDot(){var b=document.getElementById("wnbtn");if(!b)return;var n=wnUnseen().length;b.textContent=n?("What's new ("+n+")"):"What's new";}
