@@ -47,6 +47,100 @@
   "id": 1
  },
  {
+  "key": "shield-ai--director-it-project-management--remote",
+  "track": "Program Management",
+  "score": 82,
+  "title": "Director, IT Project Management",
+  "company": "Shield AI",
+  "sector": "Defense",
+  "level": "Director",
+  "location": "Remote",
+  "workModel": "Remote",
+  "salary": "$210,000-$320,000",
+  "salaryMin": 210000,
+  "salaryMax": 320000,
+  "roleType": "PMO Leadership",
+  "priority": "Medium",
+  "clearance": "None",
+  "url": "https://jobs.lever.co/shieldai/9e9fcaca-678b-45fe-b81b-691c8ff0af39",
+  "notes": "Director of the enterprise IT PMO at a defense-technology company - owns portfolio governance, intake, prioritization, stage-gate reviews and a portfolio spanning ERP, cybersecurity, cloud and data - Lever lists location Remote and workplace type remote but the posting does not name a country, so confirm Maryland eligibility - internal IT PMO rather than a government customer program, so a domain shift - band is well above the $150K floor",
+  "posted": "2026-10-19",
+  "postedDate": "2026-10-19",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Lever posting API 2026-10-23: req live; location 'Remote', workplaceType 'remote'; salary range $210,000-$320,000 per year; posting does not state a country or region restriction.",
+  "fit": {
+   "leadership": 5,
+   "domain": 3,
+   "remote": 5,
+   "comp": 5,
+   "industry": 4
+  },
+  "fitNotes": {
+   "leadership": "Director-level PMO leadership: governance, portfolio prioritization and stage-gate reviews across a multi-year enterprise roadmap.",
+   "domain": "Internal enterprise IT portfolio (ERP, cloud, data, AI enablement) rather than a customer mission program.",
+   "remote": "Lever lists location 'Remote' with workplace type 'remote'; posting does not state a country - confirm Maryland eligibility.",
+   "comp": "Published range $210,000-$320,000 per year, above the $150K floor.",
+   "industry": "Defense technology company - close to your sector even though the seat is internal."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "Not determined",
+   "remotePolicy": "Remote per posting",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 2
+ },
+ {
+  "key": "oddball--program-manager--remote",
+  "track": "Program Management",
+  "score": 70,
+  "title": "Program Manager",
+  "company": "Oddball",
+  "sector": "Federal Civilian",
+  "level": "Senior / Lead",
+  "location": "Remote",
+  "workModel": "Remote",
+  "salary": "$125,000-$175,000",
+  "salaryMin": 125000,
+  "salaryMax": 175000,
+  "roleType": "Program Management",
+  "priority": "Stretch",
+  "clearance": "Eligible/Sponsor",
+  "url": "https://job-boards.greenhouse.io/oddball/jobs/8017273003",
+  "notes": "Program Manager at a federal digital-services contractor - posting lists the location as Remote and 'Fully remote' in the benefits - ability to obtain a federal background investigation or clearance required - band minimum is below the $150K floor and the maximum clears it - mid-level program seat on agile software delivery, so a step down in managed scope",
+  "posted": "2026-10-08",
+  "postedDate": "2026-10-08",
+  "expiresOn": "",
+  "verified": "2026-10-23",
+  "lastVerified": "2026-10-23",
+  "verifiedNote": "Greenhouse board API 2026-10-23: req live; location 'Remote'; posting says 'Fully remote' and 'Thrives in a remote, collaborative environment'; wage range $125,000-$175,000.",
+  "fit": {
+   "leadership": 3,
+   "domain": 3,
+   "remote": 5,
+   "comp": 2,
+   "industry": 4
+  },
+  "fitNotes": {
+   "leadership": "Program manager on agile delivery teams - a step down from deputy or director scope.",
+   "domain": "Federal software delivery with sprint and release coordination, adjacent to your program background.",
+   "remote": "Greenhouse lists 'Remote' and the posting says 'Fully remote'; no region restriction stated.",
+   "comp": "Published range $125,000-$175,000; the minimum is below the $150K floor.",
+   "industry": "Federal civilian customers via a digital-services contractor."
+  },
+  "intel": {
+   "size": "Not determined",
+   "hq": "Not determined",
+   "remotePolicy": "Fully remote per posting",
+   "news": "Not determined",
+   "levelHistory": "Not determined"
+  },
+  "id": 3
+ },
+ {
   "key": "reddit--staff-technical-program-manager-infrastructure--remote-us",
   "track": "Program Management",
   "score": 68,
@@ -91,7 +185,7 @@
   },
   "verified": "2026-10-22",
   "lastVerified": "2026-10-22",
-  "id": 2
+  "id": 4
  },
  {
   "key": "zscaler--sr-staff-technical-program-manager--remote-us",
@@ -138,7 +232,7 @@
   },
   "verified": "2026-10-22",
   "lastVerified": "2026-10-22",
-  "id": 3
+  "id": 5
  },
  {
   "key": "zscaler--security-compliance-program-manager--remote-us",
@@ -185,7 +279,7 @@
   },
   "verified": "2026-10-22",
   "lastVerified": "2026-10-22",
-  "id": 4
+  "id": 6
  },
  {
   "key": "openai--senior-technical-program-manager-security--remote-us",
@@ -232,6 +326,6 @@
   },
   "verified": "2026-10-22",
   "lastVerified": "2026-10-22",
-  "id": 5
+  "id": 7
  }
 ]
