@@ -141,53 +141,6 @@
     "id": 3
   },
   {
-    "key": "disa--supervisory-it-program-manager--fort-meade-md",
-    "track": "Program Management",
-    "score": 82,
-    "title": "Supervisory IT Program Manager (PLCYPLN)",
-    "company": "Defense Information Systems Agency (DoD)",
-    "sector": "Defense",
-    "level": "Senior / Lead",
-    "location": "Fort Meade, MD (also Arlington, VA)",
-    "workModel": "Onsite - Maryland government",
-    "salary": "$169,279-$197,200 (GG-15)",
-    "salaryMin": 169279,
-    "salaryMax": 197200,
-    "roleType": "Technology Delivery",
-    "priority": "Medium",
-    "clearance": "Active Required",
-    "url": "https://www.usajobs.gov/job/889796300",
-    "notes": "Federal civilian job - Cyber Excepted Service - open to U.S. citizens - supervises staff and manages mission-partner requirements for IT programs - telework eligible: situational only (not remote) - closes 2026-10-29 - the appointment does not convert to the competitive service",
-    "posted": "2026-10-23",
-    "postedDate": "2026-10-23",
-    "expiresOn": "2026-10-29",
-    "verifiedNote": "Re-opened the posting on 2026-10-27 and it is still listed open. Earlier check: open 10/23/2026 to 10/29/2026; open to U.S. citizens; GG-15 $169,279-$197,200; Fort Meade MD and Arlington VA; telework eligible for situational telework only; remote job: No; security clearance field lists SCI.",
-    "fit": {
-      "leadership": 4,
-      "domain": 4,
-      "remote": 5,
-      "comp": 5,
-      "industry": 4
-    },
-    "fitNotes": {
-      "leadership": "Supervisory role - responsible for the overall management of functions and staff supporting mission-partner outreach and requirements.",
-      "domain": "IT program management for a DoD agency; you have DoD IT program and cyber oversight experience.",
-      "remote": "Not remote - the posting says telework is situational only, with Fort Meade MD as a listed location.",
-      "comp": "GG-15 band $169,279-$197,200, both ends above the $150K floor.",
-      "industry": "DoD civilian agency - a different employer type from the contractor roles you have held."
-    },
-    "intel": {
-      "size": "Not determined",
-      "hq": "Fort Meade, MD",
-      "remotePolicy": "Situational telework only",
-      "news": "Not determined",
-      "levelHistory": "Not determined"
-    },
-    "verified": "2026-10-27",
-    "lastVerified": "2026-10-27",
-    "id": 4
-  },
-  {
     "key": "caci--senior-program-manager--annapolis-junction-md",
     "track": "Program Management",
     "score": 82,
@@ -232,7 +185,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 5
+    "id": 4
   },
   {
     "key": "leidos--senior-program-manager-cdes--odenton-md",
@@ -279,7 +232,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 6
+    "id": 5
   },
   {
     "key": "peraton--technical-program-manager-satcom-operations--fort-meade-md",
@@ -326,7 +279,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 7
+    "id": 6
   },
   {
     "key": "leidos--program-manager--laurel-md",
@@ -373,7 +326,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 8
+    "id": 7
   },
   {
     "key": "leidos--program-manager--annapolis-junction-md",
@@ -420,7 +373,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 9
+    "id": 8
   },
   {
     "key": "peraton--technology-program-management-director--fort-meade-md",
@@ -467,7 +420,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 10
+    "id": 9
   },
   {
     "key": "booz-allen--technical-program-manager-lead--annapolis-junction-md",
@@ -514,7 +467,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 11
+    "id": 10
   },
   {
     "key": "maryland-department-of-labor--program-manager-senior-ii-deputy-of-customer-services--baltimore-md",
@@ -561,7 +514,7 @@
     },
     "verified": "2026-10-27",
     "lastVerified": "2026-10-27",
-    "id": 12
+    "id": 11
   },
   {
     "key": "peraton--enterprise-it-lead-space-programs--greenbelt-md",
@@ -608,7 +561,7 @@
       "news": "Not determined",
       "levelHistory": "Not determined"
     },
-    "id": 13
+    "id": 12
   },
   {
     "key": "maryland-djs--security-and-privacy-officer-admin-program-manager-iv--baltimore-md",
@@ -655,6 +608,6 @@
     },
     "verified": "2026-10-27",
     "lastVerified": "2026-10-27",
-    "id": 14
+    "id": 13
   }
 ]
