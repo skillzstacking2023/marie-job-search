@@ -20,8 +20,8 @@
   "posted": "2026-10-27",
   "postedDate": "2026-10-27",
   "expiresOn": "",
-  "verified": "2026-10-30",
-  "lastVerified": "2026-10-30",
+  "verified": "2026-11-03",
+  "lastVerified": "2026-11-03",
   "verifiedNote": "Clean run 2026-10-30: re-opened the posting itself and it is still listed open. Earlier check: listed open, band $137,400-$302,300, clearance required to start; locations Columbia MD and Hanover MD; no work model or telework stated. Posting date (2026-10-27) checked 2026-10-30 against: CACI Workday posting start date 2026-10-27 (an earlier check showed 2026-10-20; the employer date now reads 10-27, possibly reposted).",
   "fit": {
    "leadership": 5,
@@ -89,56 +89,9 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "verified": "2026-10-30",
-  "lastVerified": "2026-10-30",
+  "verified": "2026-11-03",
+  "lastVerified": "2026-11-03",
   "id": 2
- },
- {
-  "key": "peraton--enterprise-it-lead-space-programs--greenbelt-md",
-  "track": "Cyber / RMF Programs",
-  "score": 78,
-  "title": "Enterprise IT Lead / Space Programs",
-  "company": "Peraton",
-  "sector": "Defense",
-  "level": "Senior / Lead",
-  "location": "Greenbelt, MD (remote work allowed)",
-  "workModel": "Remote",
-  "salary": "$135,000-$216,000 (target range)",
-  "salaryMin": 135000,
-  "salaryMax": 216000,
-  "roleType": "Cybersecurity Programs",
-  "priority": "Medium",
-  "clearance": "Active Required",
-  "url": "https://www.careers.peraton.com/jobs/enterprise-it-lead-space-programs-greenbelt-maryland-172526-jobs--project-management--",
-  "notes": "Senior leader for program-wide cybersecurity governance - policy, risk management and compliance across multiple security boundaries, including operational-technology environments - works with ISMs, ISSOs and ISSEs - posting says remote work allowed 100% - not a pure program-management title - posted 2026-10-22 - band minimum is below the $150K floor",
-  "posted": "2026-10-22",
-  "postedDate": "2026-10-22",
-  "expiresOn": "",
-  "verified": "2026-10-30",
-  "lastVerified": "2026-10-30",
-  "verifiedNote": "Clean run 2026-10-30: re-opened the posting itself and it is still listed open. Earlier check: requisition 2026-172526, location Greenbelt MD, telecommute listed as remote work allowed 100%, Secret clearance, target salary range $135,000-$216,000. Posting date (2026-10-22) checked 2026-10-30 against: Peraton posting data datePosted 2026-10-22.",
-  "fit": {
-   "leadership": 4,
-   "domain": 4,
-   "remote": 5,
-   "comp": 4,
-   "industry": 4
-  },
-  "fitNotes": {
-   "leadership": "Described as the senior leader responsible for program-wide cybersecurity governance.",
-   "domain": "Cybersecurity policy, risk management and compliance for a space program - close to your RMF and cyber oversight work.",
-   "remote": "Posting lists Greenbelt MD and states remote work allowed 100%.",
-   "comp": "Target range $135,000-$216,000; the maximum clears the $150K floor, the minimum does not.",
-   "industry": "Large national-security contractor, space programs."
-  },
-  "intel": {
-   "size": "Not determined",
-   "hq": "McLean, VA",
-   "remotePolicy": "Remote work allowed 100%",
-   "news": "Not determined",
-   "levelHistory": "Not determined"
-  },
-  "id": 3
  },
  {
   "key": "maryland-djs--security-and-privacy-officer-admin-program-manager-iv--baltimore-md",
@@ -183,8 +136,8 @@
    "news": "Not determined",
    "levelHistory": "Not determined"
   },
-  "verified": "2026-10-30",
-  "lastVerified": "2026-10-30",
-  "id": 4
+  "verified": "2026-11-03",
+  "lastVerified": "2026-11-03",
+  "id": 3
  }
 ]
